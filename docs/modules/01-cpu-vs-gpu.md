@@ -36,9 +36,9 @@ This does not mean that a CPU executes only one operation at a time. Modern CPUs
 
 The fundamental difference is the balance of hardware resources and the resulting performance characteristics.
 
-![Illustration of a CPU organized as many independent processing cores](../assets/module-01/cpu-parallel-cores.svg)
+![Comparison of CPU and GPU parallelism](../assets/module-01/cpu-vs-gpu-parallelism.svg)
 
-_Illustrative CPU-style organization: several flexible processing cores share the work._
+_Illustrative comparison: a CPU uses a few flexible cores, while a GPU exposes many parallel lanes for regular work._
 
 ### 2. Latency versus throughput — the most important distinction
 
@@ -55,6 +55,10 @@ Consider a hypothetical processor that completes one task in 2 milliseconds vers
 
 Processor B has significantly higher throughput even though its batch takes longer. These are hypothetical numbers, not CPU/GPU benchmark results; they illustrate that optimizing throughput and minimizing individual-request latency are different goals.
 
+![Illustration of latency versus throughput](../assets/module-01/latency-vs-throughput.svg)
+
+_Latency and throughput are related but different optimization targets._
+
 #### Why this matters for vLLM
 
 Imagine an LLM serving one user. It generates one token at a time. Now imagine 100 users, each waiting for the next token.
@@ -67,10 +71,11 @@ However, batching can also introduce scheduling delays and contention. A bigger 
 
 An LLM performs enormous numbers of linear-algebra operations. Let’s begin with a tiny example.
 
-```text
-A = [ 1  2 ]       B = [ 5  6 ]
-    [ 3  4 ]           [ 7  8 ]
-```
+$$
+A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix},
+\qquad
+B = \begin{bmatrix} 5 & 6 \\ 7 & 8 \end{bmatrix}
+$$
 
 Their product is `C = AB`. Each output element is a dot product:
 
@@ -83,10 +88,9 @@ C22 = 3(6) + 4(8) = 50
 
 Therefore:
 
-```text
-C = [ 19  22 ]
-    [ 43  50 ]
-```
+$$
+C = AB = \begin{bmatrix} 19 & 22 \\ 43 & 50 \end{bmatrix}
+$$
 
 Each output element can be computed independently once its required input data is available. That property exposes a lot of parallelism.
 
@@ -96,21 +100,23 @@ _The four output elements can be evaluated independently, exposing parallel work
 
 For general matrix multiplication:
 
-```text
-A ∈ R^(M×K),    B ∈ R^(K×N),    C ∈ R^(M×N)
-```
+$$
+A \in \mathbb{R}^{M\times K},\qquad
+B \in \mathbb{R}^{K\times N},\qquad
+C \in \mathbb{R}^{M\times N}
+$$
 
 Each output element requires `K` multiplications and approximately `K` additions. Counting one multiplication and one addition as two floating-point operations:
 
-```text
-FLOPs ≈ 2MNK
-```
+$$
+\mathrm{FLOPs} \approx 2MNK
+$$
 
 For two square matrices of size `2048 × 2048`:
 
-```text
-2 × 2048³ = 17,179,869,184
-```
+$$
+2\times 2048^3 = 17{,}179{,}869{,}184
+$$
 
 That is roughly 17.18 billion floating-point operations for a single matrix multiplication: exactly the kind of large, regular computation GPUs are designed to accelerate.
 
@@ -193,6 +199,8 @@ Then run:
 ```bash
 python code/module-01/inspect_and_benchmark.py --sizes 128 512 1024 2048 --repeats 30 --include-transfer
 ```
+
+For an interactive version of the same experiment, open [`inspect_and_benchmark.ipynb`](../../code/module-01/inspect_and_benchmark.ipynb).
 
 The script prints PyTorch and CUDA information, device properties, CPU/GPU timings, estimated throughput, memory usage, correctness error, and optional transfer-inclusive timings.
 
@@ -294,24 +302,74 @@ Absolutely not.
 
 For two FP32 matrices, each `2048 × 2048`:
 
-```text
-Input bytes = 2 × 2048² × 4
-            = 33,554,432 bytes
-            = 32 MiB
-```
+$$
+\begin{aligned}
+\text{Input bytes} &= 2\times 2048^2\times 4 \\
+&= 33{,}554{,}432\ \text{bytes} \\
+&= 32\ \text{MiB}
+\end{aligned}
+$$
 
 That is 32 MiB of input data that must reach the GPU before computation. The transfer does not contribute useful arithmetic to the multiplication itself.
+
+![CPU RAM and GPU VRAM data movement](../assets/module-01/cpu-ram-gpu-vram.svg)
+
+_Inputs may travel from host RAM to device VRAM before computation; keeping data resident avoids repeated transfers._
 
 Run the transfer-inclusive measurement:
 
 ```bash
-python code/module-01/inspect_and_benchmark.py --sizes 2048 --repeats 20 --include-transfer
+python code/module-01/inspect_and_benchmark.py --sizes 2048 --repeats 20 --include-transfer --include-projection
 ```
 
 Compare:
 
 - **Compute only:** inputs are already resident in GPU memory.
 - **Transfer + compute + result:** inputs begin in CPU memory and the result is copied back.
+
+The core transfer comparison is:
+
+```python
+import statistics
+import time
+import torch
+
+n = 2048
+repeats = 20
+A_cpu = torch.randn(n, n)
+B_cpu = torch.randn(n, n)
+A_gpu = A_cpu.to("cuda")
+B_gpu = B_cpu.to("cuda")
+
+# Case 1: inputs are already on the GPU.
+for _ in range(5):
+    _ = A_gpu @ B_gpu
+torch.cuda.synchronize()
+
+compute_times = []
+for _ in range(repeats):
+    start = torch.cuda.Event(enable_timing=True)
+    end = torch.cuda.Event(enable_timing=True)
+    start.record()
+    C_gpu = A_gpu @ B_gpu
+    end.record()
+    end.synchronize()
+    compute_times.append(start.elapsed_time(end))
+
+# Case 2: copy inputs to the GPU and the result back to the CPU.
+roundtrip_times = []
+for _ in range(repeats):
+    torch.cuda.synchronize()
+    start = time.perf_counter()
+    A = A_cpu.to("cuda")
+    B = B_cpu.to("cuda")
+    C_cpu = (A @ B).cpu()
+    torch.cuda.synchronize()
+    roundtrip_times.append((time.perf_counter() - start) * 1000)
+
+print(f"Compute only: {statistics.median(compute_times):.3f} ms")
+print(f"Transfer + compute + return: {statistics.median(roundtrip_times):.3f} ms")
+```
 
 This example deliberately measures a serialized round trip. More advanced systems can overlap some transfers and computation. Normal inference servers keep model weights on the GPU and avoid repeatedly transferring them; managing GPU-resident data is therefore central to inference engineering.
 
@@ -328,8 +386,20 @@ Suppose we serve a simplified LLM with:
 
 Each FP16 parameter uses 2 bytes:
 
-```text
-Weight memory = 10⁹ × 2 bytes ≈ 2 GB
+$$
+\text{Weight memory} = 10^9\times 2\ \text{bytes} \approx 2\ \text{GB}
+$$
+
+The same estimate in Python:
+
+```python
+import torch
+
+parameter_count = 1_000_000_000
+bytes_per_fp16_parameter = torch.tensor([], dtype=torch.float16).element_size()
+weight_bytes = parameter_count * bytes_per_fp16_parameter
+
+print("Weight memory:", weight_bytes / 2**30, "GiB")
 ```
 
 This is only weight storage. Actual execution needs additional memory for activations, KV cache, kernel workspaces, and runtime data.
@@ -338,17 +408,49 @@ This is only weight storage. Actual execution needs additional memory for activa
 
 Consider a linear projection:
 
-```text
-X ∈ R^(B×4096)
-W ∈ R^(4096×4096)
-Y ∈ R^(B×4096)
-```
+$$
+X \in \mathbb{R}^{B\times 4096},\qquad
+W \in \mathbb{R}^{4096\times 4096},\qquad
+Y \in \mathbb{R}^{B\times 4096}
+$$
 
 Here `B` is the number of token positions processed together. The operation count grows with `B`, but the logical weight tensor stays the same.
+
+![Batch size and model-weight reuse](../assets/module-01/batch-weight-reuse.svg)
+
+_A larger batch lets the same weight matrix participate in work for more token positions._
 
 With `B = 1`, the GPU processes one token position through the projection. The large weight matrix participates in relatively little work per loaded value, resembling matrix-vector multiplication.
 
 With `B = 64`, the GPU processes 64 token positions through the same projection. The operation resembles a larger matrix-matrix multiplication and can make better use of GPU parallelism and Tensor Cores.
+
+You can measure the shape, arithmetic work, and memory footprint directly:
+
+```python
+import torch
+
+hidden_size = 4096
+dtype = torch.float16
+W = torch.randn(hidden_size, hidden_size, device="cuda", dtype=dtype)
+
+for B in (1, 64):
+    X = torch.randn(B, hidden_size, device="cuda", dtype=dtype)
+    torch.cuda.reset_peak_memory_stats()
+    start = torch.cuda.Event(enable_timing=True)
+    end = torch.cuda.Event(enable_timing=True)
+    start.record()
+    Y = X @ W
+    end.record()
+    end.synchronize()
+
+    flops = 2 * B * hidden_size * hidden_size
+    print(
+        f"B={B:2d} | X={tuple(X.shape)} | Y={tuple(Y.shape)} | "
+        f"FLOPs={flops / 1e9:.3f}B | "
+        f"peak memory={torch.cuda.max_memory_allocated() / 2**20:.1f} MiB | "
+        f"time={start.elapsed_time(end):.3f} ms"
+    )
+```
 
 That is the essential link to vLLM: continuous batching helps inference systems reuse model computation resources across concurrent requests, improving aggregate throughput. More arithmetic operations can also mean higher latency for some requests, so throughput and latency must be measured together.
 

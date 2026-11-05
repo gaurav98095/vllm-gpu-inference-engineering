@@ -9,3 +9,4 @@ site-url = "/vllm-gpu-inference-engineering/"
 sidebar-header-nav = true
 no-section-label = true
 additional-css = ["docs/custom.css"]
+mathjax-support = true

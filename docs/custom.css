@@ -7,3 +7,32 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* Make code examples easier to scan without changing the mdBook theme. */
+pre {
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 0.65rem;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+  line-height: 1.55;
+  margin: 1.1rem 0 1.35rem;
+  overflow-x: auto;
+  padding: 1rem 1.15rem;
+}
+
+pre > code {
+  background: transparent;
+  font-size: 0.92em;
+  tab-size: 4;
+}
+
+code {
+  border-radius: 0.25rem;
+  padding: 0.08rem 0.25rem;
+}
+
+/* Give MathJax display equations breathing room in the lesson text. */
+.math.display {
+  margin: 1.2rem 0;
+  overflow-x: auto;
+  padding: 0.35rem 0;
+}
