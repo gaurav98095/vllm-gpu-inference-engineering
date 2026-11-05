@@ -1,0 +1,8 @@
+[book]
+title = "vLLM & GPU Inference Engineering"
+authors = ["Gaurav"]
+language = "en"
+src = "docs"
+
+[output.html]
+site-url = "/vllm-gpu-inference-engineering/"
