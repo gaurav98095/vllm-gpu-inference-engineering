@@ -6,5 +6,5 @@ src = "docs"
 
 [output.html]
 site-url = "/vllm-gpu-inference-engineering/"
-sidebar-header-nav = false
+sidebar-header-nav = true
 no-section-label = true
