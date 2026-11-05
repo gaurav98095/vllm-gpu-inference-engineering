@@ -8,3 +8,4 @@ src = "docs"
 site-url = "/vllm-gpu-inference-engineering/"
 sidebar-header-nav = true
 no-section-label = true
+additional-css = ["custom.css"]

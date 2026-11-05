@@ -1,0 +1,9 @@
+/* Keep course navigation compact and single-line. */
+#sidebar .chapter li a,
+#sidebar .section li a {
+  display: block;
+  overflow: hidden;
+  padding-right: 2.5rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
