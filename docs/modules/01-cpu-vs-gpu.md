@@ -471,33 +471,6 @@ The precise placement varies with engine configuration. A vLLM server can theref
 
 This is a potential CPU-side bottleneck and a key reason to study the entire inference system rather than only CUDA kernels.
 
-### 12. Module 01 assignment
-
-Run the two benchmarks on Lightning AI and use the outputs to form your own conclusions.
-
-- [ ] Verify the NVIDIA T4 using `nvidia-smi`.
-- [ ] Verify CUDA availability and GPU capability in PyTorch.
-- [ ] Run the CPU-versus-GPU matrix multiplication benchmark.
-- [ ] Plot execution time versus matrix size.
-- [ ] Measure data-transfer overhead.
-- [ ] Explain whether all GPU operations benefited equally.
-
-When the experiment is complete, interpret the measurements — do not just report one speedup number. Consider why matrix size changed performance, whether the GPU won for small matrices, and why data movement changed overall latency.
-
-### 13. Check your understanding
-
-**Question:** Two users are generating tokens from the same LLM on a T4. Which statement is most accurate?
-
-A. A GPU always executes one user’s request faster than a CPU, regardless of model size or workload.
-
-B. Combining compatible work from both requests can improve GPU throughput, but individual latency may not always improve.
-
-C. A GPU eliminates all CPU involvement in LLM inference.
-
-D. GPU performance depends only on its CUDA core count.
-
-**Answer:** B. Batching can expose more parallel work and improve aggregate throughput, while scheduling and contention can affect individual latency. CPU orchestration remains part of the system, and hardware performance depends on more than CUDA-core count.
-
 ### References
 
 - [NVIDIA CUDA Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/) — GPU programming and execution.
