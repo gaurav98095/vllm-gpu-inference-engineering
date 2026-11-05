@@ -36,6 +36,10 @@ This does not mean that a CPU executes only one operation at a time. Modern CPUs
 
 The fundamental difference is the balance of hardware resources and the resulting performance characteristics.
 
+![Illustration of a processor organized as several independent cores](../assets/module-01/cpu-multicore-illustration.svg)
+
+_Illustrative CPU-style organization: several flexible processing cores share the work._
+
 ### 2. Latency versus throughput — the most important distinction
 
 These two words will appear throughout the course.
@@ -86,6 +90,10 @@ C = [ 19  22 ]
 
 Each output element can be computed independently once its required input data is available. That property exposes a lot of parallelism.
 
+![2×2 matrix multiplication showing four independent output elements](../assets/module-01/matrix-multiplication-2x2.svg)
+
+_The four output elements can be evaluated independently, exposing parallel work._
+
 For general matrix multiplication:
 
 ```text
@@ -122,6 +130,10 @@ The NVIDIA T4 is a Turing-architecture, compute-capability-7.5 inference-oriente
 
 These are published peak specifications, not guaranteed application performance.
 
+![NVIDIA T4 data-center GPU](../assets/module-01/nvidia-t4.png)
+
+_The NVIDIA T4 used for the practical experiments in this course._
+
 The key distinctions are:
 
 - CUDA cores execute general-purpose arithmetic instructions.
@@ -144,6 +156,10 @@ with PyTorch and both tensors on CUDA.
 The CPU does not disappear. It remains responsible for launching operations and orchestrating execution. The GPU executes the device-side computations.
 
 Crucially, GPU operations are usually asynchronous relative to the CPU. Python may enqueue GPU work and return before the GPU has completed it.
+
+![Execution flow from Python and PyTorch to GPU memory and a matrix multiplication kernel](../assets/module-01/pytorch-gpu-execution-flow.svg)
+
+_A simplified view of how a PyTorch operation reaches the GPU._
 
 This matters when benchmarking: measuring Python wall-clock time around a GPU operation without synchronization can give misleading results. Use CUDA events or explicit synchronization when measuring GPU execution time.
 
