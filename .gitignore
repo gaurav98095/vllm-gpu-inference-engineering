@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# mdBook generated output
+book/
+
+# macOS
+.DS_Store
+
+# Local environment and tooling files
+.env
+.env.*
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/

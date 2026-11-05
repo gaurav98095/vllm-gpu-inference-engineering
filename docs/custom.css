@@ -8,6 +8,31 @@
   white-space: nowrap;
 }
 
+/* Distinguish course/module titles from the dark sidebar background. */
+#sidebar .chapter > li > a {
+  border-left: 3px solid transparent;
+  color: #7dd3fc;
+  font-weight: 600;
+  padding-left: 0.8rem;
+}
+
+#sidebar .chapter > li > a:hover,
+#sidebar .chapter > li > a.active {
+  background: rgba(45, 212, 191, 0.14);
+  border-left-color: #2dd4bf;
+  color: #99f6e4;
+}
+
+#sidebar .section li a {
+  color: #cbd5e1;
+}
+
+#sidebar .section li a:hover,
+#sidebar .section li a.active {
+  background: rgba(125, 211, 252, 0.1);
+  color: #e0f2fe;
+}
+
 /* Make code examples easier to scan without changing the mdBook theme. */
 pre {
   border: 1px solid rgba(148, 163, 184, 0.28);
