@@ -36,7 +36,7 @@ This does not mean that a CPU executes only one operation at a time. Modern CPUs
 
 The fundamental difference is the balance of hardware resources and the resulting performance characteristics.
 
-![Illustration of a processor organized as several independent cores](../assets/module-01/cpu-multicore-illustration.svg)
+![Illustration of a CPU organized as many independent processing cores](../assets/module-01/cpu-parallel-cores.svg)
 
 _Illustrative CPU-style organization: several flexible processing cores share the work._
 
