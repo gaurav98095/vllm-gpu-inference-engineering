@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 330" role="img" aria-labelledby="title desc">
+  <title id="title">Output matrix tiling</title>
+  <desc id="desc">A 1024 by 4096 output is divided into 64 by 64 tiles, producing 1024 tiles.</desc>
+  <rect width="960" height="330" rx="24" fill="#111827"/>
+  <text x="50" y="52" fill="#e0f2fe" font-family="sans-serif" font-size="27" font-weight="700">Output Y · 1024 × 4096 · tile size 64 × 64</text>
+  <g transform="translate(60 92)"><rect width="600" height="170" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/><g stroke="#5eead4" stroke-width="1" opacity=".8"><path d="M0 42.5H600M0 85H600M0 127.5H600"/><path d="M37.5 0V170M75 0V170M112.5 0V170M150 0V170M187.5 0V170M225 0V170M262.5 0V170M300 0V170M337.5 0V170M375 0V170M412.5 0V170M450 0V170M487.5 0V170M525 0V170M562.5 0V170"/></g><rect x="150" y="42.5" width="37.5" height="42.5" fill="#0f766e"/><text x="300" y="205" fill="#bae6fd" font-family="sans-serif" font-size="17" text-anchor="middle">16 tile rows × 64 tile columns = 1,024 blocks</text></g>
+  <g font-family="sans-serif" fill="#f8fafc"><text x="720" y="125" font-size="22" font-weight="700">One tile</text><text x="720" y="160" font-size="18">can be assigned to</text><text x="720" y="190" font-size="18">one thread block</text><text x="720" y="235" fill="#94a3b8" font-size="16">Blocks execute in waves</text></g>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 330" role="img" aria-labelledby="title desc">
+  <title id="title">Illustrative T4 VRAM allocation</title>
+  <desc id="desc">A 16 GB VRAM bar divided into model weights, runtime memory, KV cache, and headroom.</desc>
+  <rect width="960" height="330" rx="24" fill="#111827"/>
+  <text x="54" y="60" fill="#e0f2fe" font-family="sans-serif" font-size="28" font-weight="700">Illustrative 16 GB VRAM picture</text>
+  <text x="54" y="94" fill="#94a3b8" font-family="sans-serif" font-size="17">Not a prediction of a particular vLLM configuration</text>
+  <rect x="54" y="135" width="852" height="74" rx="12" fill="#0f172a" stroke="#64748b" stroke-width="2"/>
+  <rect x="54" y="135" width="107" height="74" rx="12" fill="#0ea5e9"/><rect x="161" y="135" width="80" height="74" fill="#8b5cf6"/><rect x="241" y="135" width="538" height="74" fill="#14b8a6"/><rect x="779" y="135" width="127" height="74" rx="12" fill="#475569"/>
+  <g fill="#f8fafc" font-family="sans-serif" font-size="16" text-anchor="middle"><text x="108" y="178">2.0 GB</text><text x="201" y="178">1.5</text><text x="510" y="178">10.1 GB KV cache</text><text x="842" y="178">2.4</text></g>
+  <g fill="#bae6fd" font-family="sans-serif" font-size="16"><text x="54" y="250">Model weights</text><text x="230" y="250">Runtime</text><text x="430" y="250">KV-cache reservation</text><text x="720" y="250">Headroom</text></g>
+</svg>

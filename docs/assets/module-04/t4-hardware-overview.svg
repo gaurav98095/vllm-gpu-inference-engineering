@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-labelledby="title desc">
+  <title id="title">NVIDIA T4 hardware overview</title>
+  <desc id="desc">A T4 GPU with forty SMs, CUDA cores, Tensor Cores, GDDR6 memory, and memory bandwidth.</desc>
+  <rect width="960" height="360" rx="24" fill="#111827"/>
+  <rect x="48" y="52" width="864" height="256" rx="20" fill="#1e293b" stroke="#38bdf8" stroke-width="3"/>
+  <text x="80" y="102" fill="#e0f2fe" font-family="sans-serif" font-size="30" font-weight="700">NVIDIA T4 · Turing inference GPU</text>
+  <g font-family="sans-serif" text-anchor="middle">
+    <g fill="#0f766e" stroke="#5eead4" stroke-width="2">
+      <rect x="80" y="142" width="180" height="104" rx="14"/><rect x="280" y="142" width="180" height="104" rx="14"/>
+      <rect x="480" y="142" width="180" height="104" rx="14"/><rect x="680" y="142" width="180" height="104" rx="14"/>
+    </g>
+    <g fill="#ecfeff" font-size="28" font-weight="700">
+      <text x="170" y="184">40</text><text x="370" y="184">2,560</text><text x="570" y="184">320</text><text x="770" y="184">16 GB</text>
+    </g>
+    <g fill="#bae6fd" font-size="17">
+      <text x="170" y="218">SMs</text><text x="370" y="218">CUDA cores</text><text x="570" y="218">Tensor Cores</text><text x="770" y="218">GDDR6 VRAM</text>
+    </g>
+  </g>
+</svg>
