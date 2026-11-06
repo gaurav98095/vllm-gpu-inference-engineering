@@ -1,6 +1,5 @@
 # vLLM & GPU Inference Engineering
 
-## 64-Module Practical Masterclass
 
 This course studies vLLM and GPU inference engineering through a practical loop:
 

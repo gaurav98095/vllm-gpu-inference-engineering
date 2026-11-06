@@ -59,7 +59,8 @@ Measurements should record the GPU, software versions, tensor shapes, dtypes, ba
 ## Current progress
 
 - [x] Module 01 — [CPU vs GPU: Why GPU Computing Exists](docs/modules/01-cpu-vs-gpu.md)
-- [ ] Modules 02–64
+- [x] Module 02 — [GPU Architecture: SMs, CUDA Cores, Tensor Cores, Warps](docs/modules/02-gpu-architecture.md)
+- [ ] Modules 03–64
 
 ## Start here
 
