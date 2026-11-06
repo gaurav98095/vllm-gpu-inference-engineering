@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 280" role="img" aria-labelledby="title desc">
+  <title id="title">Model loading path</title>
+  <desc id="desc">Model checkpoint bytes move from storage through CPU RAM and PCIe into T4 VRAM.</desc>
+  <rect width="1000" height="280" rx="24" fill="#111827"/>
+  <text x="50" y="52" fill="#e0f2fe" font-family="sans-serif" font-size="27" font-weight="700">Conceptual model-loading path</text>
+  <g font-family="sans-serif" text-anchor="middle">
+    <g fill="#1e293b" stroke="#38bdf8" stroke-width="2"><rect x="42" y="105" width="170" height="92" rx="14"/><rect x="270" y="105" width="170" height="92" rx="14"/><rect x="498" y="105" width="170" height="92" rx="14"/><rect x="726" y="105" width="220" height="92" rx="14"/></g>
+    <g fill="#f8fafc" font-size="20" font-weight="700"><text x="127" y="145">Checkpoint</text><text x="355" y="145">CPU RAM</text><text x="583" y="145">PCIe</text><text x="836" y="145">T4 VRAM</text></g>
+    <g fill="#bae6fd" font-size="15"><text x="127" y="172">disk / storage</text><text x="355" y="172">staging buffers</text><text x="583" y="172">host-device copy</text><text x="836" y="172">resident weights</text></g>
+    <g fill="#2dd4bf" font-size="30"><text x="235" y="157">→</text><text x="463" y="157">→</text><text x="691" y="157">→</text></g>
+  </g>
+</svg>
