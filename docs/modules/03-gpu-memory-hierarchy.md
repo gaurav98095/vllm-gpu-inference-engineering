@@ -151,7 +151,7 @@ A naive strategy might repeatedly fetch values of A and B while calculating each
 
 An optimized algorithm divides A and B into tiles, loads reusable pieces into shared memory, and lets threads cooperate on an output tile.
 
-We’ll derive tiled GEMM in Module 04 and write an actual tiled kernel in Module 26.
+We’ll derive tiled GEMM in Module 05 and write an actual tiled kernel in Module 26.
 
 For now, remember:
 
@@ -473,4 +473,4 @@ Notice how a memory-hierarchy discussion naturally leads to vLLM configuration a
 - Bandwidth and latency are different: bandwidth describes sustained transfer capacity, while latency describes how long individual accesses take.
 - LLM inference is often about moving data efficiently, not simply maximizing arithmetic FLOPs.
 
-Next: [Module 04 — Matrix Multiplication on GPUs: FLOPs, GEMM, Tiling & Tensor Cores](04-matrix-multiplication.md)
+Next: [Module 04 — Inside an NVIDIA T4: Loading and Executing a 1B Model](04-inside-t4-1b-model.md)

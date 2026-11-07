@@ -356,4 +356,4 @@ Record the GPU name, PyTorch version, CUDA runtime, dtype, matrix shapes, repeat
 - Shared-memory and cache reuse help feed arithmetic units without repeatedly fetching the same data from VRAM.
 - GPU activity is not the same as peak useful arithmetic throughput.
 
-Next is Module 05 — GPU Hardware: T4 vs A100 vs H100 and GPU Selection.
+Next: [Module 05 — Matrix Multiplication on GPUs: GEMM, FLOPs, Tiling & Tensor Cores](05-matrix-multiplication.md)

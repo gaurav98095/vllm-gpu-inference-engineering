@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" role="img" aria-labelledby="title desc">
+  <title id="title">GEMV-like decode versus GEMM-like prefill</title>
+  <desc id="desc">One token has one input row and limited weight reuse, while 64 tokens provide many rows that reuse the same weight matrix.</desc>
+  <rect width="1000" height="420" rx="24" fill="#111827"/>
+  <text x="500" y="45" text-anchor="middle" fill="#e0f2fe" font-family="sans-serif" font-size="27" font-weight="700">More token rows expose reuse and parallelism</text>
+  <g font-family="sans-serif" text-anchor="middle">
+    <g stroke-width="2"><rect x="55" y="88" width="400" height="260" rx="16" fill="#1e293b" stroke="#60a5fa"/><rect x="545" y="88" width="400" height="260" rx="16" fill="#1e293b" stroke="#5eead4"/></g>
+    <g fill="#f8fafc" font-size="22" font-weight="700"><text x="255" y="128">1 token · GEMV-like</text><text x="745" y="128">64 tokens · GEMM-like</text></g>
+    <g stroke="#94a3b8" stroke-width="1"><rect x="105" y="166" width="95" height="145" fill="#2563eb" fill-opacity=".34"/><rect x="245" y="166" width="175" height="145" fill="#b45309" fill-opacity=".3"/><rect x="595" y="166" width="95" height="145" fill="#2563eb" fill-opacity=".34"/><rect x="735" y="166" width="175" height="145" fill="#b45309" fill-opacity=".3"/></g>
+    <g fill="#f8fafc" font-size="18"><text x="152" y="194">X</text><text x="332" y="194">W</text><text x="642" y="194">X</text><text x="822" y="194">W</text></g>
+    <g fill="#bae6fd" font-size="15"><text x="152" y="226">1 row</text><text x="332" y="226">4096 × 4096</text><text x="642" y="226">64 rows</text><text x="822" y="226">same weights</text></g>
+    <g fill="#fcd34d" font-size="16"><text x="255" y="335">≈ 1 FLOP/byte of weight reads</text><text x="745" y="335">≈ 64 FLOPs/byte if reused</text></g>
+    <path d="M205 270 H235 M695 270 H725" stroke="#2dd4bf" stroke-width="4" marker-end="url(#arrow)"/>
+  </g>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#2dd4bf"/></marker></defs>
+</svg>
