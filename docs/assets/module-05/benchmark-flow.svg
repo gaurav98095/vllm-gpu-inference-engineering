@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" role="img" aria-labelledby="title desc">
+  <title id="title">Reliable GPU GEMM benchmark flow</title>
+  <desc id="desc">A benchmark allocates GPU tensors, warms up, measures with CUDA events, synchronizes, and reports median latency and achieved TFLOP/s.</desc>
+  <rect width="1000" height="300" rx="24" fill="#111827"/>
+  <text x="500" y="45" text-anchor="middle" fill="#e0f2fe" font-family="sans-serif" font-size="27" font-weight="700">Measure device work, not Python timing noise</text>
+  <g font-family="sans-serif" text-anchor="middle">
+    <g stroke-width="2"><rect x="45" y="100" width="160" height="90" rx="14" fill="#1e3a8a" stroke="#60a5fa"/><rect x="235" y="100" width="160" height="90" rx="14" fill="#115e59" stroke="#5eead4"/><rect x="425" y="100" width="160" height="90" rx="14" fill="#4c1d95" stroke="#c4b5fd"/><rect x="615" y="100" width="160" height="90" rx="14" fill="#78350f" stroke="#fbbf24"/><rect x="805" y="100" width="150" height="90" rx="14" fill="#334155" stroke="#94a3b8"/></g>
+    <g fill="#f8fafc" font-size="17" font-weight="700"><text x="125" y="137">Allocate</text><text x="315" y="137">Warm up</text><text x="505" y="137">CUDA events</text><text x="695" y="137">Median</text><text x="880" y="137">TFLOP/s</text></g>
+    <g fill="#bae6fd" font-size="13"><text x="125" y="162">A, B, C on GPU</text><text x="315" y="162">library selection</text><text x="505" y="162">device elapsed time</text><text x="695" y="162">reduce noise</text><text x="880" y="162">2MNK / time</text></g>
+    <g fill="#2dd4bf" font-size="29" font-weight="700"><text x="218" y="151">→</text><text x="408" y="151">→</text><text x="598" y="151">→</text><text x="788" y="151">→</text></g>
+    <text x="500" y="240" fill="#fcd34d" font-size="16">Record GPU, software, shape, dtype, warmup, repetitions, latency, and throughput.</text>
+  </g>
+</svg>
