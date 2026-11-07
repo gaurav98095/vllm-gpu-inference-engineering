@@ -9,3 +9,4 @@
 - [03. GPU Memory Hierarchy](modules/03-gpu-memory-hierarchy.md)
 - [04. 1B-Parameter Model on an NVIDIA T4](modules/04-inside-t4-1b-model.md)
 - [05. Matrix Multiplication on GPUs](modules/05-matrix-multiplication.md)
+- [06. CUDA Execution Model](modules/06-cuda-execution-model.md)
