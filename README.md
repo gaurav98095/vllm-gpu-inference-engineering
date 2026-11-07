@@ -40,7 +40,7 @@ docs/modules/01-cpu-vs-gpu.md       Module documentation
 code/module-01/                     Module 01 code and experiments
 ```
 
-The documentation will eventually be published as a GitHub Pages website with a layout inspired by [Tiny-LLM](https://skyzh.github.io/tiny-llm/).
+The documentation is published as a GitHub Pages website with a layout inspired by [Tiny-LLM](https://skyzh.github.io/tiny-llm/). The site is built automatically from the docs/ directory on pushes to main.
 
 ## Module format
 
@@ -61,7 +61,7 @@ Measurements should record the GPU, software versions, tensor shapes, dtypes, ba
 - [x] Module 01 — [CPU vs GPU: Why GPU Computing Exists](docs/modules/01-cpu-vs-gpu.md)
 - [x] Module 02 — [GPU Architecture: SMs, CUDA Cores, Tensor Cores, Warps](docs/modules/02-gpu-architecture.md)
 - [x] Module 03 — [GPU Memory Hierarchy: Registers, Shared Memory, L1/L2 Cache & VRAM](docs/modules/03-gpu-memory-hierarchy.md)
-- [x] Module 04 — [Inside an NVIDIA T4: Loading and Executing a 1B Model](docs/modules/04-inside-t4-1b-model.md)
+- [x] Module 04 — [A 1B-Parameter Model on an NVIDIA T4: Memory and Execution](docs/modules/04-inside-t4-1b-model.md)
 - [x] Module 05 — [Matrix Multiplication on GPUs: GEMM, FLOPs, Tiling & Tensor Cores](docs/modules/05-matrix-multiplication.md)
 - [ ] Modules 06–64
 

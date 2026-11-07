@@ -55,9 +55,54 @@ code {
   padding: 0.08rem 0.25rem;
 }
 
+/* Keep diagrams readable without letting wide SVGs dominate the lesson. */
+.content img {
+  display: block;
+  height: auto;
+  margin: 1.35rem auto 0.55rem;
+  max-width: 100%;
+}
+
+.content img + em {
+  color: #64748b;
+  display: block;
+  font-size: 0.9rem;
+  margin: 0 auto 1.35rem;
+  text-align: center;
+}
+
+/* Make roadmap and measurement tables easier to scan. */
+.content table {
+  display: table;
+  margin: 1.25rem 0 1.5rem;
+  max-width: 100%;
+  width: 100%;
+}
+
+.content th {
+  white-space: nowrap;
+}
+
+/* Give important learning notes a consistent visual anchor. */
+.content blockquote {
+  border-left-color: #2dd4bf;
+}
+
 /* Give MathJax display equations breathing room in the lesson text. */
 .math.display {
   margin: 1.2rem 0;
   overflow-x: auto;
   padding: 0.35rem 0;
+}
+
+@media (max-width: 700px) {
+  #sidebar .chapter li a,
+  #sidebar .section li a {
+    white-space: normal;
+  }
+
+  .content table {
+    display: block;
+    overflow-x: auto;
+  }
 }

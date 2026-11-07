@@ -14,7 +14,7 @@ No. Understanding why is the main objective of today’s module.
 
 We’ll explore how GPU hardware is organized, how CUDA schedules work, and how these concepts influence LLM inference performance.
 
-### 1. Learning objectives
+## 1. Learning objectives
 
 By the end of Module 02, you should understand:
 
@@ -27,7 +27,7 @@ By the end of Module 02, you should understand:
 
 You’ll also implement a small CUDA kernel on your T4 and experiment with different thread-block sizes.
 
-### 2. The NVIDIA T4: understanding its physical structure
+## 2. The NVIDIA T4: understanding its physical structure
 
 The NVIDIA T4 is a Turing-architecture inference GPU with these important structural numbers:
 
@@ -56,13 +56,13 @@ So the T4 contains 40 SMs, each associated with 64 CUDA arithmetic lanes and 8 T
 
 An SM also contains registers, warp schedulers, shared memory, load/store hardware, and other execution resources.
 
-#### Think of an SM as a miniature parallel processor
+### Think of an SM as a miniature parallel processor
 
 A GPU is not simply one giant collection of 2,560 independent processors. It is composed of multiple SMs. Each SM can manage many software threads and execute instructions using its own hardware resources.
 
 A CUDA core is a hardware execution resource. A CUDA thread is a software execution context. They are not interchangeable.
 
-### 3. What exactly is a CUDA thread?
+## 3. What exactly is a CUDA thread?
 
 Suppose you have two arrays:
 
@@ -87,7 +87,7 @@ The CUDA thread is the logical unit of work. Every thread gets an ID and can exe
 
 When we create eight threads, CUDA does not allocate eight dedicated physical cores for their entire lifetime. Instead, threads are scheduled onto the GPU’s available hardware.
 
-### 4. What is a warp?
+## 4. What is a warp?
 
 A warp is a group of 32 CUDA threads scheduled together on an NVIDIA GPU.
 
@@ -115,7 +115,7 @@ while using different values of `i`.
 
 NVIDIA Turing supports independent thread scheduling, so the precise execution model is more flexible than saying all 32 threads must always have the same program counter. Nevertheless, divergence within a warp can reduce execution efficiency.
 
-#### Why not simply use one gigantic thread?
+### Why not simply use one gigantic thread?
 
 A single thread can execute a long sequence of instructions. But a GPU is designed to expose and schedule large amounts of independent work.
 
@@ -123,7 +123,7 @@ If one thread processes a million elements, most GPU hardware could remain idle.
 
 More threads expose more potential parallelism. They do not guarantee better performance because resource limits and scheduling overhead still matter.
 
-### 5. Thread blocks and grids
+## 5. Thread blocks and grids
 
 CUDA organizes threads into a hierarchy:
 
@@ -135,7 +135,7 @@ Warps are the hardware scheduling groups formed from threads inside a block.
 
 ![CUDA grid, block, warp, and thread hierarchy](../assets/module-02/thread-hierarchy.svg)
 
-#### Example with 1,000 elements
+### Example with 1,000 elements
 
 Suppose we need one CUDA thread per element and choose:
 
@@ -167,7 +167,7 @@ This prevents extra threads from reading or writing outside the allocated array.
 
 One important rule: an ordinary CUDA thread block runs on a single SM, although an SM may host several blocks concurrently. Blocks are distributed across available SMs, and additional blocks execute as resources become available.
 
-### 6. How do 40 SMs execute thousands of threads?
+## 6. How do 40 SMs execute thousands of threads?
 
 Imagine a CUDA kernel containing 80 blocks, each with 256 threads.
 
@@ -189,7 +189,7 @@ Not necessarily. The scheduler distributes blocks according to available hardwar
 
 ![CUDA blocks distributed across available SMs](../assets/module-02/sm-block-scheduling.svg)
 
-#### How the warp scheduler helps
+### How the warp scheduler helps
 
 Imagine that warp A needs data from GPU memory. While its memory request is pending, the scheduler can issue instructions from another ready warp, say warp B.
 
@@ -197,23 +197,23 @@ This is one reason GPUs maintain many resident warps: they can hide some instruc
 
 Warps are not guaranteed to execute simultaneously, and the T4 has finite issue and execution resources.
 
-#### Why this matters for inference
+### Why this matters for inference
 
 Think about an LLM loading weight matrices from GPU memory. If the relevant data is not immediately available, execution can stall. Having other independent work ready may help the GPU stay productive.
 
 But some inference operations do not expose enough parallel work, particularly small-batch autoregressive decode. This is one reason inference performance is not determined by peak GPU FLOPs alone.
 
-### 7. CUDA cores versus Tensor Cores
+## 7. CUDA cores versus Tensor Cores
 
 CUDA cores and Tensor Cores are different execution resources.
 
 ![CUDA cores compared with Tensor Cores](../assets/module-02/cuda-vs-tensor-cores.svg)
 
-#### CUDA Cores
+### CUDA Cores
 
 CUDA cores execute general arithmetic such as FP32 additions and multiplications, within the capabilities of the GPU’s execution pipelines.
 
-#### Tensor Cores
+### Tensor Cores
 
 Tensor Cores are specialized matrix multiply-accumulate hardware for supported shapes, data types, and instructions.
 
@@ -225,13 +225,13 @@ $$
 
 Your T4 supports Tensor Core acceleration for appropriate FP16 and integer workloads. It does not offer native BF16 or FP8 Tensor Core execution.
 
-#### Does FP16 automatically make a model fast?
+### Does FP16 automatically make a model fast?
 
 Not necessarily. Performance depends on whether the underlying kernel actually uses Tensor Core instructions, its matrix dimensions, memory traffic, and other constraints.
 
 A small or poorly configured matrix multiplication may not make effective use of Tensor Cores. We’ll explore these details in Modules 04 and 26.
 
-### 8. GPU occupancy: an important concept
+## 8. GPU occupancy: an important concept
 
 Occupancy is the fraction of the maximum supported active warps on an SM that are actually resident.
 
@@ -251,7 +251,7 @@ This example is illustrative; hardware limits depend on GPU architecture and ker
 
 ![Illustrative occupancy tradeoff from resource usage](../assets/module-02/occupancy-resources.svg)
 
-#### Why occupancy can be limited
+### Why occupancy can be limited
 
 An SM has finite resources. Every active block consumes some combination of registers, shared memory, thread slots, and other resources.
 
@@ -261,7 +261,7 @@ But be careful: 100% occupancy does not mean 100% GPU utilization, and maximum o
 
 The goal is not to maximize one metric blindly. The goal is to minimize execution time for the workload.
 
-### 9. Hands-on lab: exploring CUDA threads on Lightning AI
+## 9. Hands-on lab: exploring CUDA threads on Lightning AI
 
 We’ll do three experiments on one T4:
 
@@ -269,7 +269,7 @@ We’ll do three experiments on one T4:
 2. launch a real vector-add CUDA kernel with Numba;
 3. compare different thread-block sizes.
 
-#### Experiment A — Inspect the GPU
+### Experiment A — Inspect the GPU
 
 ```python
 import torch
@@ -288,7 +288,7 @@ print("Multiprocessors:", getattr(props, "multi_processor_count", "not exposed")
 
 Expected hardware identifiers for a T4 include compute capability `(7, 5)` and 40 multiprocessors.
 
-#### Experiment B — Launch your own CUDA kernel
+### Experiment B — Launch your own CUDA kernel
 
 Install the Numba CUDA components if needed:
 
@@ -339,7 +339,7 @@ $$
 
 The last 24 threads fail the `idx < N` check and do no useful work.
 
-#### Experiment C — Does block size affect performance?
+### Experiment C — Does block size affect performance?
 
 ```bash
 python code/module-02/vector_add_numba.py --elements 2000000 --benchmark
@@ -349,7 +349,7 @@ The benchmark varies threads per block across `[32, 64, 128, 256, 512, 1024]` wh
 
 This is a short kernel, so host launch overhead and synchronization may obscure small differences. Later modules use CUDA events and profiler traces to separate those costs more carefully.
 
-### 10. How this connects to vLLM
+## 10. How this connects to vLLM
 
 Imagine vLLM executing a matrix multiplication for a Transformer layer.
 
@@ -371,14 +371,14 @@ A larger batch may expose larger matrix operations and more parallel work. That 
 
 This is why vLLM performance depends on the interaction between scheduling, tensor shapes, kernel implementation, memory movement, and GPU resources.
 
-### References
+## References
 
 - [NVIDIA CUDA Programming Guide](https://docs.nvidia.com/cuda/cuda-programming-guide/) — Thread hierarchy, SIMT execution, warps, scheduling, and occupancy.
 - [NVIDIA T4 Specifications](https://www.nvidia.com/en-us/data-center/tesla-t4/) — T4 hardware specifications and Tensor Core capabilities.
 - [Mixed Precision Training](https://arxiv.org/abs/1710.03740) — Foundational work on mixed-precision arithmetic for deep learning.
 - [Numba CUDA documentation](https://numba.readthedocs.io/en/stable/cuda/index.html) — Building and executing Python-authored CUDA kernels.
 
-### Core takeaway
+## Core takeaway
 
 The four concepts worth remembering are:
 

@@ -1,0 +1,40 @@
+name: Validate course
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Install mdBook
+        uses: taiki-e/install-action@v2
+        with:
+          tool: mdbook
+
+      - name: Build site
+        run: mdbook build
+
+      - name: Compile Python and notebook code
+        run: |
+          python -m compileall -q code
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          for path in Path("code").glob("module-*/*.ipynb"):
+              notebook = json.loads(path.read_text())
+              source = "\n".join(
+                  "".join(cell.get("source", []))
+                  for cell in notebook.get("cells", [])
+                  if cell.get("cell_type") == "code"
+              )
+              compile(source, str(path), "exec")
+          PY

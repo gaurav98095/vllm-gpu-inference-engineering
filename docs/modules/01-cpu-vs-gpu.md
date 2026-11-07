@@ -12,7 +12,7 @@ The answer takes us into parallel computing, matrix operations, GPU hardware, an
 
 By the end of this module, you should be able to explain why GPUs are so effective for LLMs, why they aren’t always faster, and how to measure the difference yourself.
 
-### 1. The first principle: CPU and GPU solve different problems
+## 1. The first principle: CPU and GPU solve different problems
 
 Imagine that we need to perform one million independent multiplications.
 
@@ -20,13 +20,13 @@ A CPU could perform them. A GPU could also perform them. Both ultimately execute
 
 The real difference is how their hardware is organized to execute work.
 
-#### CPU: optimized for low latency and flexible execution
+### CPU: optimized for low latency and flexible execution
 
 CPUs typically dedicate substantial transistor area to complex control logic, branch prediction, caches, and out-of-order execution. These capabilities make them effective at handling unpredictable instructions and varied tasks.
 
 Examples include running an operating system, processing API requests, tokenizing text, and managing queues.
 
-#### GPU: optimized for high throughput
+### GPU: optimized for high throughput
 
 GPUs dedicate more resources to running many arithmetic operations concurrently. They are particularly effective when the same kinds of operations need to be performed on a large amount of data.
 
@@ -40,7 +40,7 @@ The fundamental difference is the balance of hardware resources and the resultin
 
 _Illustrative comparison: a CPU uses a few flexible cores, while a GPU exposes many parallel lanes for regular work._
 
-### 2. Latency versus throughput — the most important distinction
+## 2. Latency versus throughput — the most important distinction
 
 These two words will appear throughout the course.
 
@@ -59,7 +59,7 @@ Processor B has significantly higher throughput even though its batch takes long
 
 _Latency and throughput are related but different optimization targets._
 
-#### Why this matters for vLLM
+### Why this matters for vLLM
 
 Imagine an LLM serving one user. It generates one token at a time. Now imagine 100 users, each waiting for the next token.
 
@@ -67,7 +67,7 @@ Instead of running 100 completely separate GPU execution passes, vLLM can combin
 
 However, batching can also introduce scheduling delays and contention. A bigger batch is not automatically better for every latency target. We’ll study those tradeoffs in Modules 14, 15, and 21.
 
-### 3. The mathematical connection: why matrices matter
+## 3. The mathematical connection: why matrices matter
 
 An LLM performs enormous numbers of linear-algebra operations. Let’s begin with a tiny example.
 
@@ -120,7 +120,7 @@ $$
 
 That is roughly 17.18 billion floating-point operations for a single matrix multiplication: exactly the kind of large, regular computation GPUs are designed to accelerate.
 
-### 4. What hardware do we actually have?
+## 4. What hardware do we actually have?
 
 The NVIDIA T4 is a Turing-architecture, compute-capability-7.5 inference-oriented data-center GPU.
 
@@ -149,7 +149,7 @@ The key distinctions are:
 
 For now, don’t memorize all of these. Modules 02–06 explain why each one matters.
 
-### 5. How a Python operation reaches the GPU
+## 5. How a Python operation reaches the GPU
 
 Suppose you execute:
 
@@ -169,7 +169,7 @@ _A simplified view of how a PyTorch operation reaches the GPU._
 
 This matters when benchmarking: measuring Python wall-clock time around a GPU operation without synchronization can give misleading results. Use CUDA events or explicit synchronization when measuring GPU execution time.
 
-### 6. Your first Lightning AI experiment
+## 6. Your first Lightning AI experiment
 
 We’re going to answer three questions experimentally:
 
@@ -179,7 +179,7 @@ We’re going to answer three questions experimentally:
 
 We’ll use one T4, not all three.
 
-#### Step 1 — Open a Lightning AI Studio
+### Step 1 — Open a Lightning AI Studio
 
 1. Visit [Lightning AI Studios](https://studio.lightning.ai/).
 2. Create or open a Studio.
@@ -230,7 +230,7 @@ CUDA capability: (7, 5)
 
 The exact PyTorch version and available memory may vary. If PyTorch is missing, install a CUDA-enabled build using the command appropriate for your environment from [PyTorch’s official installation page](https://pytorch.org/get-started/locally/).
 
-#### Step 2 — Run a very small multiplication
+### Step 2 — Run a very small multiplication
 
 ```python
 import torch
@@ -260,7 +260,7 @@ Same result: True
 
 The CPU and GPU compute the same mathematical result. What differs is the underlying execution machinery and its performance.
 
-### 7. Interactive intuition: when does a GPU become worthwhile?
+## 7. Interactive intuition: when does a GPU become worthwhile?
 
 The following is a simple illustrative performance model, not a benchmark of your actual T4. Imagine that a CPU takes 12 ms per million operations and a GPU takes 0.8 ms per million operations plus a fixed 0.15 ms overhead.
 
@@ -272,7 +272,7 @@ For small amounts of work, the fixed overhead can dominate and the CPU can win. 
 
 These are teaching assumptions, not measured hardware characteristics. Real performance depends on workload shape, dtype, memory traffic, libraries, and system state. This is one reason batching is so important in LLM inference systems.
 
-### 8. Practical benchmark — CPU vs T4
+## 8. Practical benchmark — CPU vs T4
 
 The companion script measures actual matrix multiplication speed for several square matrix sizes. It:
 
@@ -285,7 +285,7 @@ The companion script measures actual matrix multiplication speed for several squ
 
 CPU benchmark times use a wall-clock timer; GPU times use device events. This is useful for learning, although it is not a perfectly equivalent end-to-end latency comparison. The benchmark uses FP32 and keeps GPU matrices resident during compute-only timing. Later modules optimize precision and study transfer costs in more detail.
 
-#### What to expect
+### What to expect
 
 | Matrix size | Likely lesson |
 | --- | --- |
@@ -296,7 +296,7 @@ CPU benchmark times use a wall-clock timer; GPU times use device events. This is
 
 These are predictions about the pattern, not guaranteed measured speedups. CPU model, available cores, PyTorch build, CUDA libraries, and T4 configuration can change the results.
 
-### 9. A second experiment: is GPU data transfer free?
+## 9. A second experiment: is GPU data transfer free?
 
 Absolutely not.
 
@@ -373,7 +373,7 @@ print(f"Transfer + compute + return: {statistics.median(roundtrip_times):.3f} ms
 
 This example deliberately measures a serialized round trip. More advanced systems can overlap some transfers and computation. Normal inference servers keep model weights on the GPU and avoid repeatedly transferring them; managing GPU-resident data is therefore central to inference engineering.
 
-### 10. Connecting CPU and GPU execution to a real LLM
+## 10. Connecting CPU and GPU execution to a real LLM
 
 Suppose we serve a simplified LLM with:
 
@@ -382,7 +382,7 @@ Suppose we serve a simplified LLM with:
 - one NVIDIA T4;
 - autoregressive token generation.
 
-#### Weight memory
+### Weight memory
 
 Each FP16 parameter uses 2 bytes:
 
@@ -404,7 +404,7 @@ print("Weight memory:", weight_bytes / 2**30, "GiB")
 
 This is only weight storage. Actual execution needs additional memory for activations, KV cache, kernel workspaces, and runtime data.
 
-#### What happens when we generate one token?
+### What happens when we generate one token?
 
 Consider a linear projection:
 
@@ -454,7 +454,7 @@ for B in (1, 64):
 
 That is the essential link to vLLM: continuous batching helps inference systems reuse model computation resources across concurrent requests, improving aggregate throughput. More arithmetic operations can also mean higher latency for some requests, so throughput and latency must be measured together.
 
-### 11. The CPU still has an important job in vLLM
+## 11. The CPU still has an important job in vLLM
 
 The CPU is not merely an inconvenience to eliminate.
 
@@ -471,7 +471,7 @@ The precise placement varies with engine configuration. A vLLM server can theref
 
 This is a potential CPU-side bottleneck and a key reason to study the entire inference system rather than only CUDA kernels.
 
-### References
+## References
 
 - [NVIDIA CUDA Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/) — GPU programming and execution.
 - [NVIDIA T4 specifications](https://www.nvidia.com/en-us/data-center/tesla-t4/) — Official GPU hardware information.
@@ -480,7 +480,7 @@ This is a potential CPU-side bottleneck and a key reason to study the entire inf
 - [Efficient Memory Management for Large Language Model Serving with PagedAttention](https://arxiv.org/abs/2309.06180) — Foundational vLLM serving work.
 - [vLLM GPU installation requirements](https://docs.vllm.ai/en/stable/getting_started/installation/gpu/) — Current hardware and platform requirements.
 
-### Core takeaway
+## Core takeaway
 
 GPUs excel at high-throughput parallel computation, but actual inference performance also depends on scheduling, batching, data movement, and the amount of parallel work available.
 

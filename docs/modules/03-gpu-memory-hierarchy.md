@@ -16,7 +16,7 @@ This is one of the most important reasons why GPU performance is not determined 
 
 Today, we’ll understand how GPU memory works from the hardware level all the way up to LLM inference and vLLM’s KV-cache management.
 
-### What we’ll cover
+## What we’ll cover
 
 1. Why GPUs have multiple kinds of memory.
 2. Registers, shared memory, L1 cache, L2 cache, and VRAM.
@@ -29,7 +29,7 @@ Today, we’ll understand how GPU memory works from the hardware level all the w
 
 By the end, you should be able to reason about where data lives, how many bytes need to move, and why that movement can dominate inference time.
 
-### 1. Why doesn’t a GPU just have one large, extremely fast memory?
+## 1. Why doesn’t a GPU just have one large, extremely fast memory?
 
 We want memory to be extremely fast so arithmetic units rarely wait, and extremely large so it can hold billions of model parameters.
 
@@ -37,7 +37,7 @@ Making memory simultaneously very large, very fast, low-power, and inexpensive i
 
 ![GPU memory hierarchy from registers to CPU RAM](../assets/module-03/memory-hierarchy.svg)
 
-#### The GPU memory hierarchy
+### The GPU memory hierarchy
 
 The hierarchy is conceptual, not a single sequential pipeline. Registers, shared memory, and caches have different access rules and are managed by different parts of the hardware/software stack.
 
@@ -52,7 +52,7 @@ The hierarchy is conceptual, not a single sequential pipeline. Registers, shared
 
 The closer data is to computation, the cheaper it generally is to access. The smaller storage levels also have much less capacity.
 
-### 2. The actual memory available on your T4
+## 2. The actual memory available on your T4
 
 Let’s establish the T4-specific numbers.
 
@@ -60,17 +60,17 @@ Let’s establish the T4-specific numbers.
 | --- | --- | --- |
 | Registers | 65,536 32-bit registers per SM | Individual thread values |
 | Shared memory / L1 | 96 KiB unified physical pool per SM | SM-local |
-| Configurable shared memory | Up to 64 KiB per SM | Threads within a block |
+| Shared memory allocation | Up to 64 KiB addressable by one block | Threads within a block |
 | L2 cache | 4 MiB | Shared by all 40 SMs |
 | Global memory | 16 GB GDDR6 | GPU-wide |
 
 ![T4 memory-capacity comparison](../assets/module-03/t4-memory-capacity.svg)
 
-The Turing architecture uses a unified L1/shared-memory design, with configurable partitioning rather than a separate, fully dedicated shared-memory allocation. NVIDIA specifies more than 320 GB/s of peak global-memory bandwidth for the T4.
+The Turing architecture uses a unified 96 KiB L1/shared-memory design. The hardware can carve that pool into different L1/shared-memory configurations, while one block can address up to 64 KiB of shared memory. NVIDIA specifies more than 320 GB/s of peak global-memory bandwidth for the T4.
 
 Notice the capacity gap: 16 GB of VRAM is enormous compared with a 4 MiB L2 cache. Large LLM weight matrices cannot remain entirely inside L2. The hardware must bring required portions closer to the compute units as execution proceeds.
 
-### 3. Registers — the closest storage to computation
+## 3. Registers — the closest storage to computation
 
 Imagine one GPU thread executing:
 
@@ -84,7 +84,7 @@ At a hardware level, the compiler may keep these values in registers. Registers 
 
 A register is not the same as a Python variable. The compiler decides which values are assigned to registers and which calculations can be optimized away.
 
-#### Numerical example
+### Numerical example
 
 Suppose a kernel needs 32 registers per thread and launches 256 threads per block.
 
@@ -109,7 +109,7 @@ On T4, maximum resident threads, block limits, and other resources further const
 
 ![Register pressure can reduce block residency](../assets/module-03/register-pressure.svg)
 
-#### Why does this matter?
+### Why does this matter?
 
 If a thread uses too many registers, fewer thread blocks may fit on an SM. If register pressure becomes excessive, values may spill into local memory.
 
@@ -117,7 +117,7 @@ Despite its name, CUDA local memory is generally backed by device memory and cac
 
 This is one reason a kernel that performs fewer arithmetic operations is not necessarily faster: it might require much more data movement.
 
-### 4. Shared memory — why reuse matters
+## 4. Shared memory — why reuse matters
 
 Suppose 32 threads all need the same 100 numbers. A naive implementation might repeatedly load those numbers from global memory. An optimized kernel may load the values into shared memory and allow threads in the same block to reuse them.
 
@@ -131,7 +131,7 @@ Shared memory is:
 
 Unlike L1 cache, shared memory generally requires the program to decide what gets stored there and to coordinate access correctly.
 
-#### Example: tiled matrix multiplication
+### Example: tiled matrix multiplication
 
 Suppose we multiply:
 
@@ -157,17 +157,17 @@ For now, remember:
 
 > Fast GPU computation is often about reusing data that has already been loaded, rather than doing fewer mathematical operations.
 
-### 5. L1 and L2 cache — hardware-managed data reuse
+## 5. L1 and L2 cache — hardware-managed data reuse
 
 Shared memory is explicitly programmed. Caches generally work more automatically.
 
 When a kernel accesses global memory, the hardware may retain recently accessed data in caches.
 
-#### L1 cache
+### L1 cache
 
 The T4’s L1 data cache is associated with individual SMs. It can reduce repeated accesses to more distant memory when caching is applicable.
 
-#### L2 cache
+### L2 cache
 
 The L2 cache is shared across all SMs. If SM 1 accesses data and SM 2 subsequently needs it, L2 may supply it without another trip to GDDR6.
 
@@ -177,7 +177,7 @@ A GPU memory load does not always traverse every cache in a fixed sequence. Beha
 
 For inference engineering, the important insight is that cache reuse can reduce the number of bytes transferred from relatively slow global memory.
 
-### 6. Memory latency versus memory bandwidth
+## 6. Memory latency versus memory bandwidth
 
 Latency is how long an individual memory access takes to return data. Bandwidth is how much data can be transferred per second.
 
@@ -203,7 +203,7 @@ $$
 
 That is a lower bound under ideal sustained-bandwidth conditions. Real execution may be longer because of inefficient access, additional reads or writes, contention, and imperfect bandwidth utilization.
 
-#### Explore how memory size affects transfer time
+### Explore how memory size affects transfer time
 
 For an assumed achieved bandwidth of 224 GB/s:
 
@@ -213,13 +213,13 @@ $$
 
 This model assumes the stated data volume must actually be transferred from GDDR6, without additional overhead or cache reuse. It is not a measured T4 benchmark.
 
-### 7. Coalesced versus scattered memory access
+## 7. Coalesced versus scattered memory access
 
 A GPU can have fast memory and still access it inefficiently.
 
 Consider 32 threads in a warp, each loading one FP32 value. Each FP32 value is 4 bytes.
 
-#### Scenario A — contiguous memory
+### Scenario A — contiguous memory
 
 Thread 0 loads element 0. Thread 1 loads element 1. Thread 2 loads element 2, and so on.
 
@@ -231,7 +231,7 @@ $$
 
 If the data is properly aligned, it can be served through a small number of memory sectors.
 
-#### Scenario B — strided memory
+### Scenario B — strided memory
 
 Thread 0 loads element 0. Thread 1 loads element 32. Thread 2 loads element 64, and so on.
 
@@ -241,7 +241,7 @@ Adjacent threads now access distant addresses. The warp may require many more me
 
 This concept is called memory coalescing. Two kernels may implement exactly the same mathematical operation, but one can achieve much higher effective bandwidth because its access pattern is better organized.
 
-### 8. Why LLM inference is often limited by memory bandwidth
+## 8. Why LLM inference is often limited by memory bandwidth
 
 Now connect the hierarchy to inference.
 
@@ -281,7 +281,7 @@ That is low. The GPU fetches a lot of data relative to the arithmetic performed.
 
 ![Why batch-one decode can be memory-bandwidth-bound](../assets/module-03/decode-memory-bound.svg)
 
-#### A simplified decode estimate
+### A simplified decode estimate
 
 If roughly 2 GB of weights must be streamed from memory per token:
 
@@ -293,7 +293,7 @@ That is an idealized estimate, not a measured time per token. Actual decoding al
 
 Caching, batching, quantization, and architecture-specific optimizations can change the traffic substantially. Nevertheless, this explains why small-batch LLM decoding is often memory-bandwidth-bound.
 
-#### Why batching helps
+### Why batching helps
 
 Suppose instead of one token position, we process 32 token positions through the same weight matrix:
 
@@ -305,7 +305,7 @@ The arithmetic increases by approximately 32 times, but the weight matrix does n
 
 This is one reason serving multiple requests together can improve throughput. We’ll analyze this formally with arithmetic intensity and the roofline model in Module 06.
 
-### 9. Connection to vLLM’s KV cache
+## 9. Connection to vLLM’s KV cache
 
 Model weights are not the only data consuming GPU memory. During autoregressive generation, Transformers also store previously computed keys and values: the KV cache.
 
@@ -317,7 +317,7 @@ For a conventional attention layer, consider:
 - 2 bytes per value (FP16);
 - context length 2,048 tokens.
 
-The total KV-cache memory for one sequence is approximately:
+Let L be the number of layers, H_KV the number of key/value heads, D the head dimension, S the sequence length, and b the bytes per value. The total KV-cache memory for one sequence is approximately:
 
 $$
 M_{\text{KV}} = 2\times L\times H_{\text{KV}}\times D\times S\times b
@@ -347,7 +347,7 @@ _Longer contexts increase per-sequence storage; concurrent sequences multiply th
 
 ![Paged KV-cache block mapping](../assets/module-03/kv-cache-paging.svg)
 
-#### What does vLLM do differently?
+### What does vLLM do differently?
 
 The original vLLM research introduced PagedAttention, a technique for managing KV-cache data in fixed-size blocks.
 
@@ -355,11 +355,11 @@ Instead of requiring a sequence’s physical KV allocation to occupy one large c
 
 PagedAttention is about KV-cache memory management and access; it does not make physical registers or GDDR6 faster. We’ll study block management, reference counting, prefix sharing, and the real implementation in Modules 19–20.
 
-### 10. Lightning AI lab — measure GPU memory behavior
+## 10. Lightning AI lab — measure GPU memory behavior
 
 Run the experiments in [`memory_benchmarks.py`](../../code/module-03/memory_benchmarks.py) or open [`memory_benchmarks.ipynb`](../../code/module-03/memory_benchmarks.ipynb).
 
-#### Experiment A — How much GPU memory does a tensor consume?
+### Experiment A — How much GPU memory does a tensor consume?
 
 ```python
 import torch
@@ -403,7 +403,7 @@ show_memory()
 
 `empty_cache()` releases eligible unused cached blocks, but it does not free memory occupied by live tensors.
 
-#### Experiment B — Measure effective global-memory bandwidth
+### Experiment B — Measure effective global-memory bandwidth
 
 For two large tensors:
 
@@ -425,7 +425,7 @@ python code/module-03/memory_benchmarks.py --bandwidth
 
 The result is an effective useful-data rate, not a direct DRAM measurement. Cache hits, transactions, kernel overhead, and timing variability affect the result.
 
-#### Experiment C — Compare contiguous and strided access
+### Experiment C — Compare contiguous and strided access
 
 The script also includes optional Numba kernels that compare neighboring-thread access with strided access:
 
@@ -435,7 +435,7 @@ python code/module-03/memory_benchmarks.py --coalescing
 
 Higher strides usually make memory transactions less efficient for this type of kernel. Measured times can also depend on caching, launch overhead, and the exact T4 environment.
 
-### 11. A deeper engineering thought experiment
+## 11. A deeper engineering thought experiment
 
 Imagine deploying a 7B-parameter dense LLM on your T4. If the model is stored in FP16:
 
@@ -458,14 +458,14 @@ This does not automatically prove the model cannot run. The exact situation depe
 
 Notice how a memory-hierarchy discussion naturally leads to vLLM configuration and capacity-planning decisions.
 
-### References
+## References
 
 - [NVIDIA CUDA C++ Best Practices Guide](https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/) — Device memory access, coalescing, shared memory, and optimization.
 - [Discovering the Turing T4 GPU Architecture with Microbenchmarks](https://developer.download.nvidia.com/video/gputechconf/gtc/2019/presentation/s9839-discovering-the-turing-t4-gpu-architecture-with-microbenchmarks.pdf) — T4-specific architectural observations.
 - [Roofline: An Insightful Visual Performance Model for Multicore Architectures](https://doi.org/10.1145/1498765.1498785) — Understanding memory bandwidth versus compute performance.
 - [Efficient Memory Management for Large Language Model Serving with PagedAttention](https://arxiv.org/abs/2309.06180) — vLLM KV-cache memory management.
 
-### Summary — five ideas to remember
+## Summary — five ideas to remember
 
 - Registers hold a thread’s immediate working values; excessive register usage can restrict occupancy or cause spills.
 - Shared memory and caches reduce expensive accesses to global memory by exploiting data reuse.
@@ -473,4 +473,4 @@ Notice how a memory-hierarchy discussion naturally leads to vLLM configuration a
 - Bandwidth and latency are different: bandwidth describes sustained transfer capacity, while latency describes how long individual accesses take.
 - LLM inference is often about moving data efficiently, not simply maximizing arithmetic FLOPs.
 
-Next: [Module 04 — Inside an NVIDIA T4: Loading and Executing a 1B Model](04-inside-t4-1b-model.md)
+Next: [Module 04 — A 1B-Parameter Model on an NVIDIA T4: Memory and Execution](04-inside-t4-1b-model.md)
