@@ -63,7 +63,8 @@ Measurements should record the GPU, software versions, tensor shapes, dtypes, ba
 - [x] Module 03 — [GPU Memory Hierarchy: Registers, Shared Memory, L1/L2 Cache & VRAM](docs/modules/03-gpu-memory-hierarchy.md)
 - [x] Module 04 — [A 1B-Parameter Model on an NVIDIA T4: Memory and Execution](docs/modules/04-inside-t4-1b-model.md)
 - [x] Module 05 — [Matrix Multiplication on GPUs: GEMM, FLOPs, Tiling & Tensor Cores](docs/modules/05-matrix-multiplication.md)
-- [ ] Modules 06–64
+- [x] Module 06 — [CUDA Execution Model: Kernels, Threads, Blocks, Grids & Scheduling](docs/modules/06-cuda-execution-model.md)
+- [ ] Modules 07–64
 
 ## Start here
 
