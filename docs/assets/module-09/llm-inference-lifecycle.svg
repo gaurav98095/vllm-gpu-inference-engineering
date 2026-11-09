@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 470" role="img" aria-labelledby="title desc">
+  <title id="title">LLM inference lifecycle</title>
+  <desc id="desc">A flow from text to token IDs, embeddings, Transformer blocks, logits, and a next token that loops through decode with the KV cache.</desc>
+  <rect width="1100" height="470" rx="24" fill="#111827"/>
+  <g font-family="ui-sans-serif,system-ui,sans-serif" fill="#f8fafc">
+    <text x="550" y="40" text-anchor="middle" font-size="25" font-weight="700">From prompt text to the next generated token</text>
+    <text x="550" y="68" text-anchor="middle" font-size="13" fill="#cbd5e1">Prefill processes the prompt; decode repeats one-token steps while reusing the KV cache</text>
+  </g>
+  <g fill="#1e293b" stroke-width="2">
+    <rect x="45" y="130" width="135" height="110" rx="16" stroke="#7dd3fc"/>
+    <rect x="220" y="130" width="135" height="110" rx="16" stroke="#5eead4"/>
+    <rect x="395" y="130" width="155" height="110" rx="16" stroke="#a7f3d0"/>
+    <rect x="590" y="130" width="135" height="110" rx="16" stroke="#c4b5fd"/>
+    <rect x="765" y="130" width="135" height="110" rx="16" stroke="#fbbf24"/>
+    <rect x="940" y="130" width="115" height="110" rx="16" stroke="#fb7185"/>
+  </g>
+  <g font-family="ui-sans-serif,system-ui,sans-serif" text-anchor="middle">
+    <g font-size="16" font-weight="700">
+      <text x="112" y="166" fill="#7dd3fc">Text</text>
+      <text x="287" y="166" fill="#5eead4">Token IDs</text>
+      <text x="472" y="166" fill="#a7f3d0">Embeddings</text>
+      <text x="657" y="166" fill="#c4b5fd">Transformer</text>
+      <text x="832" y="166" fill="#fbbf24">Logits</text>
+      <text x="997" y="166" fill="#fb7185">Next token</text>
+    </g>
+    <g font-size="13" fill="#e2e8f0">
+      <text x="112" y="198">CPU string</text>
+      <text x="112" y="218">processing</text>
+      <text x="287" y="198">[B, T]</text>
+      <text x="287" y="218">int64</text>
+      <text x="472" y="198">[B, T, H]</text>
+      <text x="472" y="218">dense vectors</text>
+      <text x="657" y="198">attention +</text>
+      <text x="657" y="218">MLP blocks</text>
+      <text x="832" y="198">[B, T, V]</text>
+      <text x="832" y="218">scores</text>
+      <text x="997" y="198">argmax or</text>
+      <text x="997" y="218">sampling</text>
+    </g>
+  </g>
+  <g fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M185 185 H210" stroke="#7dd3fc"/><path d="M202 175 l12 10 -12 10" stroke="#7dd3fc"/>
+    <path d="M360 185 H385" stroke="#5eead4"/><path d="M377 175 l12 10 -12 10" stroke="#5eead4"/>
+    <path d="M555 185 H580" stroke="#a7f3d0"/><path d="M572 175 l12 10 -12 10" stroke="#a7f3d0"/>
+    <path d="M730 185 H755" stroke="#c4b5fd"/><path d="M747 175 l12 10 -12 10" stroke="#c4b5fd"/>
+    <path d="M905 185 H930" stroke="#fbbf24"/><path d="M922 175 l12 10 -12 10" stroke="#fbbf24"/>
+  </g>
+  <g font-family="ui-sans-serif,system-ui,sans-serif">
+    <rect x="300" y="315" width="500" height="85" rx="18" fill="#172554" stroke="#60a5fa" stroke-width="2"/>
+    <text x="550" y="344" text-anchor="middle" fill="#bfdbfe" font-size="16" font-weight="700">Decode loop</text>
+    <text x="550" y="370" text-anchor="middle" fill="#dbeafe" font-size="14">new token + previous KV cache → one forward step → append token</text>
+    <path d="M997 250 C997 365 830 420 800 365" fill="none" stroke="#fb7185" stroke-width="3" stroke-dasharray="8 7"/>
+    <path d="M805 356 l-12 8 12 8" fill="none" stroke="#fb7185" stroke-width="3"/>
+    <text x="948" y="323" fill="#fecdd3" font-size="13" text-anchor="middle" transform="rotate(-28 948 323)">KV cache reused</text>
+  </g>
+  <text x="550" y="442" text-anchor="middle" fill="#bae6fd" font-family="ui-sans-serif,system-ui,sans-serif" font-size="15">Prefill: many prompt positions · Decode: usually one new position per active sequence</text>
+</svg>

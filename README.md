@@ -64,9 +64,10 @@ Measurements should record the GPU, software versions, tensor shapes, dtypes, ba
 - [x] Module 04 — [A 1B-Parameter Model on an NVIDIA T4: Memory and Execution](docs/modules/04-inside-t4-1b-model.md)
 - [x] Module 05 — [Matrix Multiplication on GPUs: GEMM, FLOPs, Tiling & Tensor Cores](docs/modules/05-matrix-multiplication.md)
 - [x] Module 06 — [CUDA Execution Model: Kernels, Threads, Blocks, Grids & Scheduling](docs/modules/06-cuda-execution-model.md)
-- [x] Module 07 — [GPU Hardware Selection: T4 vs A100 vs H100](docs/modules/07-gpu-hardware-selection.md)
-- [x] Module 08 — [Practical GPU Benchmarking Laboratory: Measure Before You Optimize](docs/modules/08-gpu-benchmarking-lab.md)
-- [ ] Modules 09–64
+- [x] Module 07 — [GPU Bottlenecks: Memory Bandwidth, Compute & the Roofline Model](docs/modules/07-gpu-bottlenecks-roofline.md)
+- [x] Module 08 — [GPU Hardware Selection: T4 vs A100 vs H100 vs H200 vs B200](docs/modules/08-gpu-hardware-selection.md)
+- [x] Module 09 — [LAB: Benchmark Matrix Multiplication and GPU Memory on T4](docs/modules/09-gpu-benchmarking-laboratory.md)
+- [ ] Modules 10–64
 
 ## Start here
 

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 390" role="img" aria-labelledby="title desc">
+  <title id="title">Module 09 GPU benchmarking laboratory flow</title>
+  <desc id="desc">A seven-step benchmark flow from GPU inspection through memory, bandwidth, GEMM, shapes, launch overhead, transfers, and an engineering report.</desc>
+  <rect width="1100" height="390" rx="24" fill="#111827"/>
+  <text x="550" y="42" text-anchor="middle" fill="#f8fafc" font-family="ui-sans-serif,system-ui,sans-serif" font-size="25" font-weight="700">Build a baseline before optimizing inference</text>
+  <text x="550" y="68" text-anchor="middle" fill="#cbd5e1" font-family="ui-sans-serif,system-ui,sans-serif" font-size="13">Each measurement tests a different possible bottleneck</text>
+  <g font-family="ui-sans-serif,system-ui,sans-serif" text-anchor="middle">
+    <g fill="#1e293b" stroke-width="2">
+      <rect x="45" y="112" width="125" height="100" rx="14" stroke="#7dd3fc"/><rect x="190" y="112" width="125" height="100" rx="14" stroke="#5eead4"/><rect x="335" y="112" width="125" height="100" rx="14" stroke="#a7f3d0"/><rect x="480" y="112" width="125" height="100" rx="14" stroke="#c4b5fd"/><rect x="625" y="112" width="125" height="100" rx="14" stroke="#fbbf24"/><rect x="770" y="112" width="125" height="100" rx="14" stroke="#fb7185"/><rect x="915" y="112" width="140" height="100" rx="14" stroke="#f97316"/>
+    </g>
+    <g font-size="15" font-weight="700">
+      <text x="107" y="145" fill="#7dd3fc">1. Inspect</text><text x="252" y="145" fill="#5eead4">2. Memory</text><text x="397" y="145" fill="#a7f3d0">3. GEMM</text><text x="542" y="145" fill="#c4b5fd">4. Shapes</text><text x="687" y="145" fill="#fbbf24">5. Launches</text><text x="832" y="145" fill="#fb7185">6. Transfers</text><text x="985" y="145" fill="#f97316">7. Report</text>
+    </g>
+    <g font-size="12" fill="#e2e8f0">
+      <text x="107" y="175">GPU + VRAM</text><text x="107" y="193">software</text><text x="252" y="175">allocator</text><text x="252" y="193">bandwidth</text><text x="397" y="175">TFLOPS</text><text x="397" y="193">arithmetic</text><text x="542" y="175">GEMV → GEMM</text><text x="542" y="193">reuse</text><text x="687" y="175">microseconds</text><text x="687" y="193">dispatch</text><text x="832" y="175">PCIe</text><text x="832" y="193">latency</text><text x="985" y="175">hypothesis</text><text x="985" y="193">next test</text>
+    </g>
+  </g>
+  <g stroke="#94a3b8" stroke-width="3" fill="none" stroke-linecap="round"><path d="M173 162h12M318 162h12M463 162h12M608 162h12M753 162h12M898 162h12"/><path d="M180 155l8 7-8 7M325 155l8 7-8 7M470 155l8 7-8 7M615 155l8 7-8 7M760 155l8 7-8 7M905 155l8 7-8 7"/></g>
+  <text x="550" y="292" text-anchor="middle" fill="#bae6fd" font-family="ui-sans-serif,system-ui,sans-serif" font-size="16">Record shape + dtype + work + timing + memory for every result.</text>
+  <text x="550" y="326" text-anchor="middle" fill="#94a3b8" font-family="ui-sans-serif,system-ui,sans-serif" font-size="13">Then compare the baseline with real model prefill and decode in the next phase.</text>
+</svg>

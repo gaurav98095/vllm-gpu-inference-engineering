@@ -11,7 +11,7 @@ import torch
 
 T4_FP32_TFLOPS = 8.1
 T4_FP16_TFLOPS = 65.0
-T4_BANDWIDTH_GBS = 320.0
+T4_BANDWIDTH_GBS = 300.0
 
 
 @dataclass(frozen=True)
