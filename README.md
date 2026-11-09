@@ -51,8 +51,17 @@ Each module should contain:
 - a measurable experiment;
 - GPU behavior and results;
 - a connection to vLLM internals;
-- exercises or a completion checklist;
+- a concise recap and practical observations;
 - references and follow-up questions.
+
+### Required module artifacts
+
+For every module that contains code:
+
+- include both a runnable `.py` file and a matching `.ipynb` notebook;
+- include representative, runnable code directly in the Markdown lesson;
+- include a useful set of diagrams or images that explain the architecture, data flow, tensor shapes, or measured behavior;
+- link the Markdown lesson to its companion files and visual assets.
 
 Measurements should record the GPU, software versions, tensor shapes, dtypes, batch sizes, sequence lengths, repetitions, latency, throughput, and memory usage whenever relevant.
 
