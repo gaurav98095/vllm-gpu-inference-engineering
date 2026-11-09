@@ -11,7 +11,9 @@ import torch
 
 T4_FP32_TFLOPS = 8.1
 T4_FP16_TFLOPS = 65.0
-T4_BANDWIDTH_GBS = 300.0
+# The roofline lesson uses the T4 product-brief reference of 320 GB/s.
+# Module 08 separately uses 300 GB/s for its older-datasheet comparison table.
+T4_BANDWIDTH_GBS = 320.0
 
 
 @dataclass(frozen=True)

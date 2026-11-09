@@ -380,3 +380,7 @@ The same reasoning also explains why a GPU can report high activity while delive
 Suppose the same T4 has the same weight matrix resident in VRAM in two scenarios. Scenario A processes one decoding token. Scenario B processes 64 tokens together.
 
 Why might scenario B achieve much higher TFLOP/s even though it uses the same GPU and the same weight matrix? Answer using **arithmetic intensity**, **weight reuse**, and **GPU utilization**.
+
+Module 05 complete.
+
+Next: [Module 06 — CUDA Execution Model: Kernels, Threads, Blocks, Grids & Scheduling](06-cuda-execution-model.md)

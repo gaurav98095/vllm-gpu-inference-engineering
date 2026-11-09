@@ -37,7 +37,7 @@ The lessons also explain which experiments can be studied through CPU execution,
 | Phase | Modules | Focus |
 | --- | ---: | --- |
 | GPU Fundamentals | 01–09 | Hardware, memory, execution, CUDA, benchmarking |
-| LLM Inference Fundamentals | 10–17 | Transformers, prefill, decode, KV cache, batching, metrics |
+| LLM Inference Fundamentals | 10–16 | Transformers, prefill, decode, KV cache, batching, metrics |
 | vLLM Internals | 17–24 | V1, PagedAttention, scheduling, tracing |
 | CUDA and Kernel Optimization | 25–32 | CUDA, GEMM, Triton, attention kernels, graphs, profiling |
 | Inference Optimization | 33–40 | Precision, quantization, speculation, long context, LoRA |

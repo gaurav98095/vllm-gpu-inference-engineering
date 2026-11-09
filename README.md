@@ -22,7 +22,7 @@ The primary models will be in the 0.5B–3B range, with larger quantized models 
 
 ## Course phases
 
-1. **GPU Fundamentals (Modules 01–08)** — CPU vs GPU, GPU architecture, memory, CUDA execution, and benchmarking.
+1. **GPU Fundamentals (Modules 01–09)** — CPU vs GPU, GPU architecture, memory, CUDA execution, hardware selection, and benchmarking.
 2. **LLM Inference Fundamentals (Modules 09–16)** — Transformer computation, prefill, decode, KV cache, batching, and metrics.
 3. **vLLM Internals (Modules 17–24)** — vLLM V1, PagedAttention, KV-cache management, scheduling, and tracing.
 4. **CUDA, Kernels & GPU Optimization (Modules 25–32)** — CUDA, GEMM, Triton, attention kernels, CUDA Graphs, and profiling.

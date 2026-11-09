@@ -52,7 +52,7 @@ $$
 \boxed{P_{\text{achievable}}\leq\min\left(P_{\text{peak}},AI\times BW_{\text{peak}}\right)}
 $$
 
-For a representative T4, use approximately 8.1 TFLOPS FP32, 65 TFLOPS mixed FP16/FP32 Tensor Core arithmetic, and 320 GB/s peak memory bandwidth. The simplified balance points are:
+For a representative T4, use approximately 8.1 TFLOPS FP32, 65 TFLOPS mixed FP16/FP32 Tensor Core arithmetic, and 320 GB/s peak memory bandwidth. NVIDIA references also include a 300 GB/s value in an older datasheet; this lesson uses 320 GB/s consistently for its rounded roofline examples, while Module 08 uses the 300 GB/s datasheet value for its hardware-comparison table. The simplified balance points are:
 
 | Compute path | Balance point |
 | --- | ---: |
@@ -186,3 +186,5 @@ D. Number of threads.
 - [PagedAttention](https://arxiv.org/abs/2309.06180)
 
 Module 07 complete.
+
+Next: [Module 08 — GPU Hardware Selection: T4 vs A100 vs H100 and GPU Selection](08-gpu-hardware-selection.md)
