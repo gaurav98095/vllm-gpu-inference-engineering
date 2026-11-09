@@ -505,4 +505,4 @@ Module 06 complete.
 
 You now have the foundations needed to understand how CUDA expresses and schedules GPU execution.
 
-Next: Module 07 — coming soon.
+Next: [Module 07 — GPU Hardware Selection: T4 vs A100 vs H100](07-gpu-hardware-selection.md).

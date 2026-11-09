@@ -303,7 +303,7 @@ $$
 
 The arithmetic increases by approximately 32 times, but the weight matrix does not need to be replicated 32 times. With efficient reuse, the GPU can amortize weight loading over much more work.
 
-This is one reason serving multiple requests together can improve throughput. We’ll analyze this formally with arithmetic intensity and the roofline model in Module 06.
+This is one reason serving multiple requests together can improve throughput. We’ll analyze this formally with arithmetic intensity and the roofline model in Module 07.
 
 ## 9. Connection to vLLM’s KV cache
 

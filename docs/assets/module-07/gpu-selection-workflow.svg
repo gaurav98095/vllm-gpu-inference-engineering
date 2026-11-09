@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" role="img" aria-labelledby="title desc">
+  <title id="title">GPU selection workflow</title>
+  <desc id="desc">A four-step flow: check capacity, classify bandwidth or compute, check precision and interconnect, then benchmark the service end to end.</desc>
+  <rect width="1000" height="430" rx="24" fill="#111827"/>
+  <g fill="#1e293b" stroke-width="2">
+    <rect x="60" y="100" width="180" height="145" rx="16" stroke="#7dd3fc"/>
+    <rect x="300" y="100" width="180" height="145" rx="16" stroke="#5eead4"/>
+    <rect x="540" y="100" width="180" height="145" rx="16" stroke="#c4b5fd"/>
+    <rect x="780" y="100" width="140" height="145" rx="16" stroke="#fbbf24"/>
+  </g>
+  <g font-family="ui-sans-serif,system-ui,sans-serif" fill="#f8fafc">
+    <text x="500" y="42" text-anchor="middle" font-size="25" font-weight="700">A repeatable hardware-selection workflow</text>
+    <text x="500" y="70" text-anchor="middle" font-size="13" fill="#cbd5e1">Do not start with peak TFLOPS; start with the workload's first hard constraint</text>
+    <g font-size="16" font-weight="700" text-anchor="middle">
+      <text x="150" y="136" fill="#7dd3fc">1. Fit</text>
+      <text x="390" y="136" fill="#5eead4">2. Classify</text>
+      <text x="630" y="136" fill="#c4b5fd">3. Connect</text>
+      <text x="850" y="136" fill="#fbbf24">4. Measure</text>
+    </g>
+    <g font-size="14" text-anchor="middle" fill="#e2e8f0">
+      <text x="150" y="178">weights + KV cache</text>
+      <text x="150" y="201">+ runtime headroom</text>
+      <text x="390" y="178">bandwidth or compute?</text>
+      <text x="390" y="201">use AI and profiling</text>
+      <text x="630" y="178">dtype + PCIe/NVLink</text>
+      <text x="630" y="201">sharding and collectives</text>
+      <text x="850" y="178">TTFT + ITL + tokens/s</text>
+      <text x="850" y="201">memory + cost/request</text>
+    </g>
+    <g font-size="13" text-anchor="middle" fill="#94a3b8">
+      <text x="150" y="300">If no: quantize, shorten, or shard</text>
+      <text x="390" y="300">Decode often streams; prefill may compute</text>
+      <text x="630" y="300">Communication can erase scaling gains</text>
+      <text x="850" y="300">Choose the best measured configuration</text>
+    </g>
+  </g>
+  <g fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M255 170 H285" stroke="#7dd3fc"/>
+    <path d="M495 170 H525" stroke="#5eead4"/>
+    <path d="M735 170 H765" stroke="#c4b5fd"/>
+    <path d="M278 160 l12 10 -12 10" stroke="#7dd3fc"/>
+    <path d="M518 160 l12 10 -12 10" stroke="#5eead4"/>
+    <path d="M758 160 l12 10 -12 10" stroke="#c4b5fd"/>
+  </g>
+  <text x="500" y="374" text-anchor="middle" fill="#bae6fd" font-family="ui-sans-serif,system-ui,sans-serif" font-size="15">Capacity is a gate. Speed is a measured property of the complete serving system.</text>
+</svg>
