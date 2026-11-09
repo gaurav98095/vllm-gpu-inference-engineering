@@ -154,30 +154,6 @@ High utilization with low TFLOPS can be a perfectly normal memory-bound workload
 
 The right optimization follows the measured limiting resource. Quantization does not directly fix CPU dispatch overhead; CUDA Graphs do not eliminate a weight-bandwidth ceiling.
 
-## Assignment
-
-- [ ] Run vector addition and record useful GB/s.
-- [ ] Run 4096×4096 FP16 GEMM and record achieved TFLOPS.
-- [ ] Compare projection shapes from 1 through 512 rows.
-- [ ] Calculate arithmetic intensity for all three workloads.
-- [ ] Identify one memory-bound and one compute-oriented result.
-- [ ] Explain why batching can improve throughput without improving every request's latency.
-- [ ] State what profiler metric would confirm your bottleneck hypothesis.
-
-## Knowledge check
-
-A kernel has arithmetic intensity 10 FLOPs/byte on a T4 with 320 GB/s bandwidth and 65 TFLOPS FP16 Tensor Core peak. Which roof determines its idealized ceiling?
-
-A. Compute, because Tensor Cores can reach 65 TFLOPS.
-
-B. Memory bandwidth, giving $10\times320=3.2$ TFLOPS.
-
-C. VRAM capacity.
-
-D. Number of threads.
-
-**Answer:** B. The arithmetic intensity is below the approximately 203 FLOPs/byte FP16 balance point, so the memory roof is lower.
-
 ## References
 
 - [Roofline: An Insightful Performance Model](https://doi.org/10.1145/1498765.1498785)

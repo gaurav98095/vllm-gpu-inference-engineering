@@ -346,16 +346,6 @@ Transformer linear layers are GEMMs. A serving engine cannot change the T4's pea
 
 The same reasoning also explains why a GPU can report high activity while delivering modest TFLOP/s: memory pipelines, launch overhead, synchronization, or irregular work may be limiting the arithmetic units.
 
-## Assignment checklist
-
-- [ ] Benchmark FP16 square GEMMs from 256 to 4096.
-- [ ] Plot achieved TFLOP/s against matrix dimension.
-- [ ] Compare FP16 and FP32 execution time.
-- [ ] Benchmark projection shapes with 1, 4, 16, 64, 256, and 1024 tokens.
-- [ ] Explain which shapes achieve the highest TFLOP/s.
-- [ ] Identify where memory bandwidth or underutilization matters most.
-- [ ] Answer the final thought question using arithmetic intensity, weight reuse, and GPU utilization.
-
 ## References
 
 - [NVIDIA CUDA C++ Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/) — Matrix multiplication and shared-memory programming.
@@ -374,9 +364,3 @@ The same reasoning also explains why a GPU can report high activity while delive
 | Arithmetic intensity | Useful arithmetic divided by bytes moved. |
 | Decode | Small token dimensions often behave GEMV-like and are harder to saturate. |
 | Prefill and batching | More rows can improve reuse, parallelism, and Tensor Core utilization. |
-
-## Final thought question
-
-Suppose the same T4 has the same weight matrix resident in VRAM in two scenarios. Scenario A processes one decoding token. Scenario B processes 64 tokens together.
-
-Why might scenario B achieve much higher TFLOP/s even though it uses the same GPU and the same weight matrix? Answer using **arithmetic intensity**, **weight reuse**, and **GPU utilization**.

@@ -465,21 +465,7 @@ This is one motivation for CUDA Graph replay and kernel fusion.
 
 _Many small dispatches expose repeated overhead; one larger launch consolidates the same broad class of work._
 
-## 15. Knowledge check
-
-Suppose a kernel has 10,000 independent blocks but the GPU has only 40 SMs. What must be true?
-
-A. The kernel cannot execute because there are more blocks than SMs.
-
-B. All 10,000 blocks must execute at exactly the same time.
-
-C. Blocks are scheduled on available SMs over time, potentially with multiple resident blocks per SM.
-
-D. Every block requires a separate physical GPU.
-
-**Answer:** C.
-
-## 16. References
+## References
 
 - [NVIDIA CUDA Programming Guide](https://docs.nvidia.com/cuda/cuda-programming-guide/) — Programming model, grids, blocks, warps, scheduling, and execution.
 - [NVIDIA Compute Capabilities](https://docs.nvidia.com/cuda/cuda-programming-guide/05-appendices/compute-capabilities.html) — T4 compute capability 7.5 and per-SM resource limits.

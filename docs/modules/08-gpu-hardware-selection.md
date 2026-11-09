@@ -180,7 +180,7 @@ Quantized checkpoints need scales, metadata, packing overhead, and sometimes hig
 
 > Select a precision that preserves quality, is supported by the GPU, and has a fast kernel in the serving stack you actually use.
 
-## 7. Model-fitting exercise
+## 7. Model memory planning
 
 For a model with $P$ billion parameters and $b$ bytes per parameter, the approximate weight memory in decimal GB is:
 
@@ -360,33 +360,6 @@ done
 ```
 
 Remember that this calculates a planning estimate, not the actual vLLM allocation.
-
-## 12. Assignment
-
-- [ ] Record the actual GPU name, memory, compute capability, and SM count on Lightning AI.
-- [ ] Compare the five representative GPU rows and identify the first hard constraint for three workloads.
-- [ ] Calculate weight memory for 3B, 7B, 13B, and 70B models at FP16, INT8, and INT4.
-- [ ] Estimate whether a 7B FP16 model has practical headroom on one T4.
-- [ ] Inspect `nvidia-smi topo -m` when multiple GPUs are available.
-- [ ] Explain when three T4 replicas may be preferable to tensor parallelism.
-- [ ] Calculate idealized 14 GB streaming lower bounds for T4 and H100.
-- [ ] Compare tokens per rupee for two hypothetical configurations.
-
-## 13. Test your understanding
-
-You have a 3B model that comfortably fits on one T4. Your goal is to maximize throughput for many independent user requests using three T4 GPUs.
-
-Which is the sensible starting configuration to benchmark?
-
-A. Always split the model with tensor parallelism across all three GPUs.
-
-B. Run three independent model replicas, one per GPU, and distribute requests between them.
-
-C. Combine the three GPUs into one 48 GB physical memory pool automatically.
-
-D. Run the model on CPU because multi-GPU communication is expensive.
-
-**Answer: B.** Independent replicas avoid per-layer tensor-parallel communication when the model already fits on one GPU. This is a starting hypothesis; the final choice still requires end-to-end throughput, latency, and cost measurements.
 
 ## Technical references
 

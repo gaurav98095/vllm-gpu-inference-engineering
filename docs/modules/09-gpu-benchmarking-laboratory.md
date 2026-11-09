@@ -309,38 +309,6 @@ When vLLM generates tokens for several users, use this baseline to ask:
 
 The benchmark suite is not a model benchmark. It is the baseline that prevents us from blaming vLLM before measuring the hardware and runtime constraints underneath it.
 
-## 15. Assignment
-
-- [ ] Run all seven experiments on one T4.
-- [ ] Save the JSON report and three plots.
-- [ ] Record GPU, driver, PyTorch, CUDA, shapes, dtypes, repetitions, and memory state.
-- [ ] Identify one memory-oriented result, one compute-oriented result, and one launch-sensitive result.
-- [ ] Compare projection batches 1 and 128 using both time and achieved TFLOPS.
-- [ ] Explain why CPU–GPU transfer bandwidth is not HBM bandwidth.
-- [ ] Explain why reserved memory can remain after deleting a tensor.
-- [ ] Write a one-paragraph hypothesis about what could limit a future vLLM decode workload.
-
-## 16. Final challenge
-
-The same 4096×4096 weight matrix is used at two batch sizes:
-
-| Batch size | Execution time | Arithmetic work |
-| ---: | ---: | ---: |
-| 1 | 0.10 ms | 33.55 million FLOPs |
-| 64 | 0.40 ms | 2.15 billion FLOPs |
-
-Which statement is correct?
-
-A. Batch 64 is less efficient because 0.40 ms is greater than 0.10 ms.
-
-B. Batch 64 completes much more arithmetic per second even though its total execution time is longer.
-
-C. Both configurations have the same computational throughput.
-
-D. We can conclude both configurations fully saturate the T4 Tensor Cores.
-
-**Answer:** B. Batch 1 achieves about 0.34 TFLOPS, while batch 64 achieves about 5.37 TFLOPS. The larger batch does more work, but its arithmetic throughput is much higher. The numbers still do not prove full Tensor Core saturation.
-
 ## References
 
 - [PyTorch CUDA semantics](https://docs.pytorch.org/docs/stable/notes/cuda.html) — Asynchronous execution and accurate timing.
