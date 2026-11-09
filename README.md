@@ -77,7 +77,8 @@ Measurements should record the GPU, software versions, tensor shapes, dtypes, ba
 - [x] Module 08 — [GPU Hardware Selection: T4 vs A100 vs H100 vs H200 vs B200](docs/modules/08-gpu-hardware-selection.md)
 - [x] Module 09 — [LAB: Benchmark Matrix Multiplication and GPU Memory on T4](docs/modules/09-gpu-benchmarking-laboratory.md)
 - [x] Module 10 — [LLM Inference Lifecycle: From Tokenization to Autoregressive Generation](docs/modules/10-llm-inference-lifecycle.md)
-- [ ] Modules 11–64
+- [x] Module 11 — [Transformer Forward Pass as GPU Workloads](docs/modules/11-transformer-forward-pass.md)
+- [ ] Modules 12–64
 
 ## Start here
 

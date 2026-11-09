@@ -502,4 +502,4 @@ The three points to retain are:
 
 **Module 10 complete.**
 
-Next: Module 11 — Transformer Forward Pass as GPU Workloads: QKV Projections, Attention, MLPs, Normalization & Matrix Shapes.
+Next: [Module 11 — Transformer Forward Pass as GPU Workloads](11-transformer-forward-pass.md).
