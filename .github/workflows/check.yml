@@ -24,17 +24,28 @@ jobs:
 
       - name: Compile Python and notebook code
         run: |
+          # Compile only Python source files. Notebook files are JSON documents,
+          # not Python modules, so they are validated in the next step.
           python -m compileall -q code
           python - <<'PY'
           import json
           from pathlib import Path
 
-          for path in Path("code").glob("module-*/*.ipynb"):
+          for path in sorted(Path("code").glob("module-*/*.ipynb")):
               notebook = json.loads(path.read_text())
-              source = "\n".join(
-                  "".join(cell.get("source", []))
-                  for cell in notebook.get("cells", [])
-                  if cell.get("cell_type") == "code"
-              )
-              compile(source, str(path), "exec")
+              for index, cell in enumerate(notebook.get("cells", [])):
+                  if cell.get("cell_type") != "code":
+                      continue
+                  lines = []
+                  for line in "".join(cell.get("source", [])).splitlines():
+                      # Ignore notebook-only shell and magic commands while
+                      # still parsing every Python statement in the cell.
+                      if line.lstrip().startswith(("%", "!")):
+                          continue
+                      lines.append(line)
+                  compile(
+                      "\n".join(lines),
+                      f"{path}:cell-{index}",
+                      "exec",
+                  )
           PY

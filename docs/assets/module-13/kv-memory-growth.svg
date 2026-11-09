@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="350" viewBox="0 0 900 350" role="img" aria-labelledby="title desc">
+  <title id="title">Linear KV cache memory growth</title>
+  <desc id="desc">KV memory grows linearly with cached positions and active sequences.</desc>
+  <rect width="900" height="350" fill="#f8fafc"/>
+  <text x="45" y="42" font-family="sans-serif" font-size="23" font-weight="700" fill="#0f172a">Logical KV storage grows linearly</text>
+  <line x1="110" y1="275" x2="790" y2="275" stroke="#334155" stroke-width="2"/><line x1="110" y1="75" x2="110" y2="275" stroke="#334155" stroke-width="2"/>
+  <text x="450" y="320" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#475569">Cached positions per sequence</text>
+  <text x="28" y="180" transform="rotate(-90 28 180)" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#475569">KV memory</text>
+  <polyline points="140,260 260,225 380,190 500,155 620,120 740,85" fill="none" stroke="#2563eb" stroke-width="5"/>
+  <g fill="#2563eb"><circle cx="140" cy="260" r="6"/><circle cx="260" cy="225" r="6"/><circle cx="380" cy="190" r="6"/><circle cx="500" cy="155" r="6"/><circle cx="620" cy="120" r="6"/><circle cx="740" cy="85" r="6"/></g>
+  <text x="135" y="250" font-family="sans-serif" font-size="14" fill="#1e3a8a">64</text><text x="733" y="76" font-family="sans-serif" font-size="14" fill="#1e3a8a">1,024</text>
+  <rect x="560" y="210" width="255" height="52" rx="10" fill="#dcfce7" stroke="#16a34a"/><text x="687" y="242" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#166534">More sequences multiply the line</text>
+</svg>

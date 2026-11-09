@@ -19,3 +19,4 @@
 - [10. LLM Inference Lifecycle](modules/10-llm-inference-lifecycle.md)
 - [11. Transformer Forward Pass as GPU Workloads](modules/11-transformer-forward-pass.md)
 - [12. Prefill vs Decode](modules/12-prefill-vs-decode.md)
+- [13. KV Cache from First Principles](modules/13-kv-cache.md)
