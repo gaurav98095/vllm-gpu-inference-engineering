@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 560" role="img" aria-labelledby="title desc">
+  <title id="title">GPU hardware selection trade-offs</title>
+  <desc id="desc">Three representative GPU columns compare memory capacity, bandwidth, compute, and interconnect from T4 to A100 to H100.</desc>
+  <rect width="1000" height="520" rx="24" fill="#111827"/>
+  <g font-family="ui-sans-serif,system-ui,sans-serif" fill="#f8fafc">
+    <text x="550" y="42" text-anchor="middle" font-size="25" font-weight="700">GPU selection is multi-dimensional</text>
+    <text x="550" y="70" text-anchor="middle" font-size="13" fill="#cbd5e1">Capacity gates the deployment; bandwidth, compute, and topology determine its speed</text>
+    <g font-size="16" font-weight="700">
+      <text x="440" y="116" text-anchor="middle" fill="#7dd3fc">T4</text>
+      <text x="700" y="116" text-anchor="middle" fill="#5eead4">A100</text>
+      <text x="960" y="116" text-anchor="middle" fill="#c4b5fd">H100</text>
+    </g>
+    <g font-size="14" fill="#cbd5e1">
+      <text x="85" y="166">VRAM capacity</text>
+      <text x="85" y="256">Memory bandwidth</text>
+      <text x="85" y="346">Dense Tensor Core compute</text>
+      <text x="85" y="436">Multi-GPU link</text>
+    </g>
+    <g font-size="14" text-anchor="middle" font-weight="700">
+      <text x="440" y="166" fill="#7dd3fc">16 GB</text>
+      <text x="700" y="166" fill="#5eead4">80 GB</text>
+      <text x="960" y="166" fill="#c4b5fd">80 GB</text>
+      <text x="440" y="256" fill="#7dd3fc">320 GB/s</text>
+      <text x="700" y="256" fill="#5eead4">2.04 TB/s</text>
+      <text x="960" y="256" fill="#c4b5fd">3.35 TB/s</text>
+      <text x="440" y="346" fill="#7dd3fc">65 TFLOPS</text>
+      <text x="700" y="346" fill="#5eead4">312 TFLOPS</text>
+      <text x="960" y="346" fill="#c4b5fd">989 TFLOPS</text>
+      <text x="440" y="436" fill="#7dd3fc">PCIe</text>
+      <text x="700" y="436" fill="#5eead4">NVLink</text>
+      <text x="960" y="436" fill="#c4b5fd">NVLink</text>
+    </g>
+  </g>
+  <g stroke="#475569" stroke-width="1.5" opacity=".8">
+    <line x1="70" y1="132" x2="1030" y2="132"/>
+    <line x1="70" y1="210" x2="1030" y2="210"/>
+    <line x1="70" y1="300" x2="1030" y2="300"/>
+    <line x1="70" y1="390" x2="1030" y2="390"/>
+    <line x1="70" y1="480" x2="1030" y2="480"/>
+    <line x1="570" y1="92" x2="570" y2="480"/>
+    <line x1="830" y1="92" x2="830" y2="480"/>
+  </g>
+  <g fill="#64748b" font-family="ui-sans-serif,system-ui,sans-serif" font-size="12">
+    <text x="550" y="520" text-anchor="middle">Use the workload's limiting resource to choose the column, not one peak number.</text>
+  </g>
+</svg>

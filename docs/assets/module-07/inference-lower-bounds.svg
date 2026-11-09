@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" role="img" aria-labelledby="title desc">
+  <title id="title">Idealized memory and compute lower bounds for batched inference</title>
+  <desc id="desc">A comparison of constant 2 GB weight-memory time and increasing compute time for batch sizes 1, 64, and 256.</desc>
+  <rect width="1000" height="500" rx="24" fill="#111827"/>
+  <g font-family="ui-sans-serif,system-ui,sans-serif" fill="#f8fafc">
+    <text x="500" y="42" text-anchor="middle" font-size="24" font-weight="700">Idealized 1B FP16 weight-streaming bounds</text>
+    <text x="500" y="70" text-anchor="middle" font-size="13" fill="#cbd5e1">memory time stays constant while compute time grows with batched work</text>
+    <text x="55" y="265" transform="rotate(-90 55 265)" text-anchor="middle" font-size="15">Time (ms)</text>
+    <text x="500" y="466" text-anchor="middle" font-size="15">Token positions processed together</text>
+    <text x="760" y="116" font-size="14" fill="#5eead4">weight-memory lower bound · 6.25 ms</text>
+    <text x="760" y="145" font-size="14" fill="#c4b5fd">compute lower bound · 65 TFLOPS</text>
+  </g>
+  <g stroke="#64748b" stroke-width="2">
+    <line x1="105" y1="410" x2="920" y2="410"/>
+    <line x1="105" y1="410" x2="105" y2="95"/>
+    <line x1="105" y1="330" x2="920" y2="330" opacity=".35"/>
+    <line x1="105" y1="250" x2="920" y2="250" opacity=".35"/>
+    <line x1="105" y1="170" x2="920" y2="170" opacity=".35"/>
+  </g>
+  <g fill="#0d9488">
+    <rect x="180" y="160" width="52" height="250" rx="8"/>
+    <rect x="460" y="160" width="52" height="250" rx="8"/>
+    <rect x="740" y="160" width="52" height="250" rx="8"/>
+  </g>
+  <g fill="#8b5cf6">
+    <rect x="245" y="409" width="52" height="1" rx="2"/>
+    <rect x="525" y="311" width="52" height="99" rx="8"/>
+    <rect x="805" y="94" width="52" height="316" rx="8"/>
+  </g>
+  <g font-family="ui-sans-serif,system-ui,sans-serif" text-anchor="middle">
+    <g fill="#f8fafc" font-size="15" font-weight="700">
+      <text x="238" y="438">1</text>
+      <text x="518" y="438">64</text>
+      <text x="798" y="438">256</text>
+    </g>
+    <g fill="#bae6fd" font-size="13">
+      <text x="206" y="145">6.25</text>
+      <text x="486" y="145">6.25</text>
+      <text x="766" y="145">6.25</text>
+    </g>
+    <g fill="#ddd6fe" font-size="13">
+      <text x="271" y="395">0.03</text>
+      <text x="551" y="296">1.97</text>
+      <text x="831" y="80">7.88</text>
+    </g>
+  </g>
+  <g fill="#94a3b8" font-family="ui-sans-serif,system-ui,sans-serif" font-size="12">
+    <text x="98" y="414" text-anchor="end">0</text>
+    <text x="98" y="334" text-anchor="end">2</text>
+    <text x="98" y="254" text-anchor="end">4</text>
+    <text x="98" y="174" text-anchor="end">6</text>
+    <text x="98" y="98" text-anchor="end">8</text>
+  </g>
+</svg>
