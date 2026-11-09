@@ -29,6 +29,8 @@ That result passes through several distinct stages:
 
 This module follows that lifecycle as an inference engineer: by tracking tensors, devices, memory, and latency rather than treating the model as a black box.
 
+The companion files are [`llm_inference_lifecycle.py`](../../code/module-10/llm_inference_lifecycle.py) and [`llm_inference_lifecycle.ipynb`](../../code/module-10/llm_inference_lifecycle.ipynb). They implement the model loading, tokenization, prefill, greedy decoding, and KV-cache measurements below.
+
 ## 1. The complete inference lifecycle
 
 This is a simplified path:
