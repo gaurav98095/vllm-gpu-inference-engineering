@@ -6,7 +6,7 @@ Learn a concept → implement it → measure GPU behavior → connect it to vLLM
 
 This course starts with GPU fundamentals and CUDA, then moves through Transformer inference, vLLM internals, kernel optimization, distributed inference, and production serving.
 
-**Progress:** 11 of 64 modules complete · **17.2%**
+**Progress:** 12 of 64 modules complete · **18.8%**
 
 **Primary environment:** Lightning AI · NVIDIA T4 · Linux · Python · PyTorch
 

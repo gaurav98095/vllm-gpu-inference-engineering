@@ -556,4 +556,4 @@ For Qwen2.5-0.5B:
 
 **Module 11 complete.**
 
-Next: Module 12 — Prefill vs Decode: Compute-Bound vs Memory-Bound Inference.
+Next: [Module 12 — Prefill vs Decode: Compute-Bound vs Memory-Bound LLM Inference](12-prefill-vs-decode.md).
