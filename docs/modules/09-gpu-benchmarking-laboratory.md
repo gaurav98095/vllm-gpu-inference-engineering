@@ -328,4 +328,4 @@ The benchmark suite is not a model benchmark. It is the baseline that prevents u
 
 Module 09 complete.
 
-Next: Module 10 — LLM Inference Lifecycle: From Tokenization to Token Generation.
+Next: [Module 10 — LLM Inference Lifecycle: From Tokenization to Autoregressive Generation](10-llm-inference-lifecycle.md).

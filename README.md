@@ -22,8 +22,8 @@ The primary models will be in the 0.5B–3B range, with larger quantized models 
 
 ## Course phases
 
-1. **GPU Fundamentals (Modules 01–08)** — CPU vs GPU, GPU architecture, memory, CUDA execution, and benchmarking.
-2. **LLM Inference Fundamentals (Modules 09–16)** — Transformer computation, prefill, decode, KV cache, batching, and metrics.
+1. **GPU Fundamentals (Modules 01–09)** — CPU vs GPU, GPU architecture, memory, CUDA execution, hardware selection, and benchmarking.
+2. **LLM Inference Fundamentals (Modules 10–16)** — Transformer computation, prefill, decode, KV cache, batching, and metrics.
 3. **vLLM Internals (Modules 17–24)** — vLLM V1, PagedAttention, KV-cache management, scheduling, and tracing.
 4. **CUDA, Kernels & GPU Optimization (Modules 25–32)** — CUDA, GEMM, Triton, attention kernels, CUDA Graphs, and profiling.
 5. **Inference Performance Optimization (Modules 33–40)** — Precision, quantization, speculative decoding, long context, LoRA, and tuning.
@@ -67,7 +67,8 @@ Measurements should record the GPU, software versions, tensor shapes, dtypes, ba
 - [x] Module 07 — [GPU Bottlenecks: Memory Bandwidth, Compute & the Roofline Model](docs/modules/07-gpu-bottlenecks-roofline.md)
 - [x] Module 08 — [GPU Hardware Selection: T4 vs A100 vs H100 vs H200 vs B200](docs/modules/08-gpu-hardware-selection.md)
 - [x] Module 09 — [LAB: Benchmark Matrix Multiplication and GPU Memory on T4](docs/modules/09-gpu-benchmarking-laboratory.md)
-- [ ] Modules 10–64
+- [x] Module 10 — [LLM Inference Lifecycle: From Tokenization to Autoregressive Generation](docs/modules/10-llm-inference-lifecycle.md)
+- [ ] Modules 11–64
 
 ## Start here
 

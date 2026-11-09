@@ -13,3 +13,7 @@
 - [07. GPU Bottlenecks](modules/07-gpu-bottlenecks-roofline.md)
 - [08. GPU Hardware Selection](modules/08-gpu-hardware-selection.md)
 - [09. LAB: Benchmark Matrix Multiplication and GPU Memory on T4](modules/09-gpu-benchmarking-laboratory.md)
+
+## Phase 2 — LLM Inference Fundamentals
+
+- [10. LLM Inference Lifecycle](modules/10-llm-inference-lifecycle.md)

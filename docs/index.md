@@ -6,7 +6,7 @@ Learn a concept → implement it → measure GPU behavior → connect it to vLLM
 
 This course starts with GPU fundamentals and CUDA, then moves through Transformer inference, vLLM internals, kernel optimization, distributed inference, and production serving.
 
-**Progress:** 9 of 64 modules complete · **14.1%**
+**Progress:** 10 of 64 modules complete · **15.6%**
 
 **Primary environment:** Lightning AI · NVIDIA T4 · Linux · Python · PyTorch
 
@@ -37,7 +37,7 @@ The lessons also explain which experiments can be studied through CPU execution,
 | Phase | Modules | Focus |
 | --- | ---: | --- |
 | GPU Fundamentals | 01–09 | Hardware, memory, execution, CUDA, benchmarking |
-| LLM Inference Fundamentals | 10–17 | Transformers, prefill, decode, KV cache, batching, metrics |
+| LLM Inference Fundamentals | 10–16 | Transformers, prefill, decode, KV cache, batching, metrics |
 | vLLM Internals | 17–24 | V1, PagedAttention, scheduling, tracing |
 | CUDA and Kernel Optimization | 25–32 | CUDA, GEMM, Triton, attention kernels, graphs, profiling |
 | Inference Optimization | 33–40 | Precision, quantization, speculation, long context, LoRA |
