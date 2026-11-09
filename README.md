@@ -79,7 +79,8 @@ Measurements should record the GPU, software versions, tensor shapes, dtypes, ba
 - [x] Module 10 — [LLM Inference Lifecycle: From Tokenization to Autoregressive Generation](docs/modules/10-llm-inference-lifecycle.md)
 - [x] Module 11 — [Transformer Forward Pass as GPU Workloads](docs/modules/11-transformer-forward-pass.md)
 - [x] Module 12 — [Prefill vs Decode: Compute-Bound vs Memory-Bound LLM Inference](docs/modules/12-prefill-vs-decode.md)
-- [ ] Modules 13–64
+- [x] Module 13 — [KV Cache from First Principles: Tensor Shapes, Memory Growth & GPU Storage](docs/modules/13-kv-cache.md)
+- [ ] Modules 14–64
 
 ## Start here
 

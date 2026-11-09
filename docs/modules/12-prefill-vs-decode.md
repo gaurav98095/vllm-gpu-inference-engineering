@@ -350,4 +350,4 @@ Prefill and decode execute the same Transformer but expose different amounts of 
 
 **Module 12 complete.**
 
-Next: Module 13 — KV Cache from First Principles: Tensor Shapes, Memory Growth, Incremental Attention & GPU Storage.
+Next: [Module 13 — KV Cache from First Principles: Tensor Shapes, Memory Growth & GPU Storage](13-kv-cache.md).
