@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 430" role="img" aria-labelledby="title desc">
+  <title id="title">Prefill and decode request timeline</title>
+  <desc id="desc">A request timeline showing prompt prefill followed by repeated one-token decode steps.</desc>
+  <rect width="1100" height="430" rx="24" fill="#111827"/>
+  <text x="550" y="42" text-anchor="middle" fill="#f8fafc" font-family="ui-sans-serif,system-ui,sans-serif" font-size="26" font-weight="700">One request: prefill once, decode repeatedly</text>
+  <text x="550" y="70" text-anchor="middle" fill="#cbd5e1" font-family="ui-sans-serif,system-ui,sans-serif" font-size="14">The first output token comes from prefill; later tokens append to the KV cache</text>
+  <line x1="85" y1="230" x2="1015" y2="230" stroke="#64748b" stroke-width="4"/>
+  <rect x="100" y="150" width="340" height="100" rx="16" fill="#172554" stroke="#60a5fa" stroke-width="2"/>
+  <text x="270" y="185" text-anchor="middle" fill="#bfdbfe" font-family="ui-sans-serif,system-ui,sans-serif" font-size="20" font-weight="700">Prefill</text>
+  <text x="270" y="215" text-anchor="middle" fill="#dbeafe" font-family="ui-sans-serif,system-ui,sans-serif" font-size="14">100 prompt tokens → first logits</text>
+  <rect x="490" y="150" width="115" height="100" rx="16" fill="#14532d" stroke="#86efac" stroke-width="2"/>
+  <rect x="635" y="150" width="115" height="100" rx="16" fill="#14532d" stroke="#86efac" stroke-width="2"/>
+  <rect x="780" y="150" width="115" height="100" rx="16" fill="#14532d" stroke="#86efac" stroke-width="2"/>
+  <rect x="925" y="150" width="90" height="100" rx="16" fill="#3f1d35" stroke="#fb7185" stroke-width="2"/>
+  <g fill="#bbf7d0" font-family="ui-sans-serif,system-ui,sans-serif" text-anchor="middle" font-size="16" font-weight="700"><text x="547" y="185">Decode 1</text><text x="692" y="185">Decode 2</text><text x="837" y="185">Decode 3</text><text x="970" y="185">…</text></g>
+  <g fill="#dcfce7" font-family="ui-sans-serif,system-ui,sans-serif" text-anchor="middle" font-size="12"><text x="547" y="215">append 1 token</text><text x="692" y="215">append 1 token</text><text x="837" y="215">append 1 token</text><text x="970" y="215">repeat</text></g>
+  <g fill="none" stroke="#cbd5e1" stroke-width="3"><path d="M440 200 H480"/><path d="M605 200 H625"/><path d="M750 200 H770"/><path d="M895 200 H915"/></g>
+  <g fill="#cbd5e1" font-family="ui-sans-serif,system-ui,sans-serif" font-size="13"><text x="100" y="285">t₀</text><text x="470" y="285">t₁</text><text x="615" y="285">t₂</text><text x="760" y="285">t₃</text><text x="910" y="285">t₄</text></g>
+  <path d="M548 320 C750 390 930 390 970 275" fill="none" stroke="#fbbf24" stroke-width="3" stroke-dasharray="8 7"/>
+  <text x="600" y="382" fill="#fde68a" font-family="ui-sans-serif,system-ui,sans-serif" font-size="14">KV cache grows and is reused at every decode step</text>
+</svg>

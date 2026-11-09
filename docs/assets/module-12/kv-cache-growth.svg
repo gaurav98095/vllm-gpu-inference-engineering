@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" role="img" aria-labelledby="title desc">
+  <title id="title">KV-cache memory growth</title>
+  <desc id="desc">KV-cache memory grows linearly with cached tokens and concurrent sequences.</desc>
+  <rect width="1000" height="430" rx="24" fill="#111827"/>
+  <text x="500" y="42" text-anchor="middle" fill="#f8fafc" font-family="ui-sans-serif,system-ui,sans-serif" font-size="26" font-weight="700">KV-cache memory grows with context and concurrency</text>
+  <text x="500" y="70" text-anchor="middle" fill="#cbd5e1" font-family="ui-sans-serif,system-ui,sans-serif" font-size="14">Qwen2.5-0.5B FP16 logical storage: approximately 12 KiB per cached token per sequence</text>
+  <g stroke="#475569" stroke-width="1"><path d="M120 350 H900"/><path d="M120 290 H900"/><path d="M120 230 H900"/><path d="M120 170 H900"/><path d="M120 110 H900"/></g>
+  <g fill="#94a3b8" font-family="ui-sans-serif,system-ui,sans-serif" font-size="12" text-anchor="end"><text x="110" y="354">0</text><text x="110" y="294">24 MiB</text><text x="110" y="234">48 MiB</text><text x="110" y="174">72 MiB</text><text x="110" y="114">96 MiB</text></g>
+  <g fill="#60a5fa"><rect x="190" y="342" width="100" height="8" rx="4"/><rect x="370" y="314" width="100" height="36" rx="6"/><rect x="550" y="278" width="100" height="72" rx="6"/><rect x="730" y="206" width="100" height="144" rx="8"/></g>
+  <g fill="#bfdbfe" font-family="ui-sans-serif,system-ui,sans-serif" text-anchor="middle" font-size="13"><text x="240" y="375">128</text><text x="420" y="375">512</text><text x="600" y="375">1,024</text><text x="780" y="375">2,048</text><text x="500" y="405">Cached tokens per sequence</text></g>
+  <text x="875" y="185" fill="#fde68a" font-family="ui-sans-serif,system-ui,sans-serif" font-size="13">× active sequences</text>
+</svg>

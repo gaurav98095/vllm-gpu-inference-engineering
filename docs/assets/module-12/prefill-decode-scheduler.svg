@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 430" role="img" aria-labelledby="title desc">
+  <title id="title">vLLM scheduler mixing prefill and decode work</title>
+  <desc id="desc">Three requests enter a scheduler and produce a combined execution iteration containing decode tokens and prefill tokens.</desc>
+  <rect width="1050" height="430" rx="24" fill="#111827"/>
+  <text x="525" y="42" text-anchor="middle" fill="#f8fafc" font-family="ui-sans-serif,system-ui,sans-serif" font-size="26" font-weight="700">One scheduler iteration can mix token work</text>
+  <text x="525" y="70" text-anchor="middle" fill="#cbd5e1" font-family="ui-sans-serif,system-ui,sans-serif" font-size="14">The engine balances throughput, latency, cache state, and token budgets</text>
+  <g font-family="ui-sans-serif,system-ui,sans-serif">
+    <rect x="55" y="125" width="220" height="70" rx="14" fill="#3f1d35" stroke="#fb7185" stroke-width="2"/><text x="165" y="155" text-anchor="middle" fill="#fecdd3" font-size="17" font-weight="700">Request A</text><text x="165" y="178" text-anchor="middle" fill="#ffe4e6" font-size="13">decode: 1 token</text>
+    <rect x="55" y="215" width="220" height="70" rx="14" fill="#3f1d35" stroke="#fb7185" stroke-width="2"/><text x="165" y="245" text-anchor="middle" fill="#fecdd3" font-size="17" font-weight="700">Request B</text><text x="165" y="268" text-anchor="middle" fill="#ffe4e6" font-size="13">decode: 1 token</text>
+    <rect x="55" y="305" width="220" height="70" rx="14" fill="#172554" stroke="#60a5fa" stroke-width="2"/><text x="165" y="335" text-anchor="middle" fill="#bfdbfe" font-size="17" font-weight="700">Request C</text><text x="165" y="358" text-anchor="middle" fill="#dbeafe" font-size="13">prefill: 128 tokens</text>
+    <rect x="390" y="165" width="260" height="170" rx="20" fill="#14532d" stroke="#86efac" stroke-width="2"/><text x="520" y="205" text-anchor="middle" fill="#bbf7d0" font-size="20" font-weight="700">Scheduler</text><text x="520" y="235" text-anchor="middle" fill="#dcfce7" font-size="14">token budget</text><text x="520" y="260" text-anchor="middle" fill="#dcfce7" font-size="14">cache capacity</text><text x="520" y="285" text-anchor="middle" fill="#dcfce7" font-size="14">latency policy</text><text x="520" y="310" text-anchor="middle" fill="#bbf7d0" font-size="13">chunked prefill when needed</text>
+    <rect x="770" y="175" width="220" height="150" rx="18" fill="#451a03" stroke="#fbbf24" stroke-width="2"/><text x="880" y="215" text-anchor="middle" fill="#fde68a" font-size="19" font-weight="700">Execution step</text><text x="880" y="245" text-anchor="middle" fill="#fef3c7" font-size="14">2 decode positions</text><text x="880" y="270" text-anchor="middle" fill="#fef3c7" font-size="14">+ 128 prefill positions</text><text x="880" y="300" text-anchor="middle" fill="#fde68a" font-size="13">attention metadata preserved</text>
+  </g>
+  <g fill="none" stroke="#cbd5e1" stroke-width="3"><path d="M285 160 C330 160 345 205 380 220"/><path d="M285 250 C330 250 345 250 380 250"/><path d="M285 340 C330 340 345 295 380 280"/><path d="M660 250 H760"/></g>
+</svg>

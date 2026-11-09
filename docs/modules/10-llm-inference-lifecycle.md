@@ -31,6 +31,10 @@ This module follows that lifecycle as an inference engineer: by tracking tensors
 
 The companion files are [`llm_inference_lifecycle.py`](../../code/module-10/llm_inference_lifecycle.py) and [`llm_inference_lifecycle.ipynb`](../../code/module-10/llm_inference_lifecycle.ipynb). They implement the model loading, tokenization, prefill, greedy decoding, and KV-cache measurements below.
 
+![LLM inference lifecycle from prompt text through cached autoregressive generation](../assets/module-09/llm-inference-lifecycle.svg)
+
+_The request moves from CPU text processing into GPU tensor operations, then loops through incremental decode with the KV cache._
+
 ## 1. The complete inference lifecycle
 
 This is a simplified path:
@@ -144,6 +148,10 @@ That is only one projection in one part of the model. The complete forward pass 
 
 Because all prompt positions are processed together, prefill can form relatively large matrix operations and use the GPU efficiently. Causal attention still prevents a position from attending to future positions.
 
+![Prefill versus incremental decode](../assets/module-10/prefill-vs-decode.svg)
+
+_Prefill processes many prompt positions together; incremental decode usually processes one new position per active sequence._
+
 ## 6. Phase D — Logits and token selection
 
 The language-model head maps hidden states to vocabulary scores. With vocabulary size $V=151936$ and 20 prompt positions:
@@ -209,6 +217,10 @@ $$
 $$
 
 This is logical tensor storage only. Allocator reservations, temporary attention memory, padding, and other runtime state add overhead.
+
+![Qwen KV-cache tensor shapes and bytes per cached token](../assets/module-10/kv-cache-shape.svg)
+
+_The KV cache grows with cached positions, layers, KV heads, and head dimension._
 
 ## 8. Lightning AI laboratory
 
@@ -490,4 +502,4 @@ The three points to retain are:
 
 **Module 10 complete.**
 
-Next: Module 11 — Transformer Forward Pass as GPU Workloads: QKV Projections, Attention, MLPs, Normalization & Matrix Shapes.
+Next: [Module 11 — Transformer Forward Pass as GPU Workloads](11-transformer-forward-pass.md).

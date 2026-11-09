@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 390" role="img" aria-labelledby="title desc">
+  <title id="title">Grouped-query attention head sharing</title>
+  <desc id="desc">Fourteen query heads are grouped into two groups of seven, with each group sharing one key and one value head.</desc>
+  <rect width="1000" height="390" rx="24" fill="#111827"/>
+  <text x="500" y="42" text-anchor="middle" fill="#f8fafc" font-family="ui-sans-serif,system-ui,sans-serif" font-size="25" font-weight="700">Grouped-Query Attention</text>
+  <text x="500" y="68" text-anchor="middle" fill="#cbd5e1" font-family="ui-sans-serif,system-ui,sans-serif" font-size="14">14 query heads share 2 key/value heads</text>
+  <g font-family="ui-sans-serif,system-ui,sans-serif" text-anchor="middle">
+    <text x="210" y="110" fill="#93c5fd" font-size="18" font-weight="700">Query heads</text>
+    <text x="790" y="110" fill="#86efac" font-size="18" font-weight="700">KV heads</text>
+  </g>
+  <g fill="#1d4ed8" stroke="#93c5fd" stroke-width="2">
+    <rect x="70" y="135" width="40" height="32" rx="7"/><rect x="120" y="135" width="40" height="32" rx="7"/><rect x="170" y="135" width="40" height="32" rx="7"/><rect x="220" y="135" width="40" height="32" rx="7"/><rect x="270" y="135" width="40" height="32" rx="7"/><rect x="320" y="135" width="40" height="32" rx="7"/><rect x="370" y="135" width="40" height="32" rx="7"/>
+    <rect x="70" y="235" width="40" height="32" rx="7"/><rect x="120" y="235" width="40" height="32" rx="7"/><rect x="170" y="235" width="40" height="32" rx="7"/><rect x="220" y="235" width="40" height="32" rx="7"/><rect x="270" y="235" width="40" height="32" rx="7"/><rect x="320" y="235" width="40" height="32" rx="7"/><rect x="370" y="235" width="40" height="32" rx="7"/>
+  </g>
+  <g fill="#dbeafe" font-family="ui-sans-serif,system-ui,sans-serif" font-size="12" text-anchor="middle">
+    <text x="90" y="156">Q0</text><text x="140" y="156">Q1</text><text x="190" y="156">Q2</text><text x="240" y="156">Q3</text><text x="290" y="156">Q4</text><text x="340" y="156">Q5</text><text x="390" y="156">Q6</text>
+    <text x="90" y="256">Q7</text><text x="140" y="256">Q8</text><text x="190" y="256">Q9</text><text x="240" y="256">Q10</text><text x="290" y="256">Q11</text><text x="340" y="256">Q12</text><text x="390" y="256">Q13</text>
+  </g>
+  <rect x="690" y="145" width="110" height="70" rx="14" fill="#166534" stroke="#86efac" stroke-width="3"/>
+  <rect x="690" y="245" width="110" height="70" rx="14" fill="#166534" stroke="#86efac" stroke-width="3"/>
+  <g fill="#dcfce7" font-family="ui-sans-serif,system-ui,sans-serif" text-anchor="middle"><text x="745" y="175" font-size="19" font-weight="700">KV0</text><text x="745" y="197" font-size="13">K0 + V0</text><text x="745" y="275" font-size="19" font-weight="700">KV1</text><text x="745" y="297" font-size="13">K1 + V1</text></g>
+  <g fill="none" stroke="#a7f3d0" stroke-width="3" opacity="0.9">
+    <path d="M410 151 C520 151 550 180 680 180"/><path d="M410 251 C520 251 550 280 680 280"/>
+  </g>
+  <text x="500" y="350" text-anchor="middle" fill="#cbd5e1" font-family="ui-sans-serif,system-ui,sans-serif" font-size="14">Each KV head is shared by seven query heads, reducing K/V projection width and cache storage.</text>
+</svg>

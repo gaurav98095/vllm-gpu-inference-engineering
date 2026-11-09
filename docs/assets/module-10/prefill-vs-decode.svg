@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520" role="img" aria-labelledby="title desc">
+  <title id="title">Prefill versus incremental decode</title>
+  <desc id="desc">A comparison showing prefill processing many prompt tokens together and decode processing one new token while reading the existing KV cache.</desc>
+  <rect width="1100" height="520" rx="24" fill="#111827"/>
+  <g font-family="ui-sans-serif,system-ui,sans-serif" fill="#f8fafc">
+    <text x="550" y="42" text-anchor="middle" font-size="26" font-weight="700">Prefill and decode use the same model differently</text>
+    <text x="550" y="70" text-anchor="middle" font-size="14" fill="#cbd5e1">Prompt length, active sequences, and KV-cache reuse change the GPU workload shape</text>
+  </g>
+  <rect x="45" y="105" width="485" height="335" rx="20" fill="#172554" stroke="#60a5fa" stroke-width="2"/>
+  <rect x="570" y="105" width="485" height="335" rx="20" fill="#3f1d35" stroke="#fb7185" stroke-width="2"/>
+  <g font-family="ui-sans-serif,system-ui,sans-serif" text-anchor="middle">
+    <text x="287" y="145" fill="#bfdbfe" font-size="22" font-weight="700">Prefill</text>
+    <text x="812" y="145" fill="#fecdd3" font-size="22" font-weight="700">Incremental decode</text>
+    <text x="287" y="176" fill="#dbeafe" font-size="14">Process the prompt in parallel</text>
+    <text x="812" y="176" fill="#ffe4e6" font-size="14">Process one new position per sequence</text>
+  </g>
+  <g font-family="ui-sans-serif,system-ui,sans-serif" font-size="14">
+    <text x="75" y="220" fill="#93c5fd" font-weight="700">Input</text>
+    <g fill="#2563eb" stroke="#93c5fd">
+      <rect x="75" y="240" width="54" height="42" rx="8"/><rect x="138" y="240" width="54" height="42" rx="8"/>
+      <rect x="201" y="240" width="54" height="42" rx="8"/><rect x="264" y="240" width="54" height="42" rx="8"/>
+      <rect x="327" y="240" width="54" height="42" rx="8"/><rect x="390" y="240" width="54" height="42" rx="8"/>
+    </g>
+    <g fill="#dbeafe" text-anchor="middle"><text x="102" y="266">t₁</text><text x="165" y="266">t₂</text><text x="228" y="266">t₃</text><text x="291" y="266">…</text><text x="354" y="266">tₛ₋₁</text><text x="417" y="266">tₛ</text></g>
+    <path d="M75 310 H445" stroke="#93c5fd" stroke-width="3"/><path d="M430 300 l15 10 -15 10" fill="none" stroke="#93c5fd" stroke-width="3"/>
+    <text x="75" y="350" fill="#93c5fd" font-weight="700">GPU work</text>
+    <text x="75" y="375" fill="#dbeafe">Larger GEMM-like projections</text>
+    <text x="75" y="398" fill="#dbeafe">Prompt attention with causal masking</text>
+    <text x="600" y="220" fill="#fda4af" font-weight="700">New input</text>
+    <rect x="600" y="240" width="70" height="42" rx="8" fill="#e11d48" stroke="#fecdd3"/>
+    <text x="635" y="266" fill="#fff1f2" text-anchor="middle">tₛ₊₁</text>
+    <path d="M680 261 H735" stroke="#fda4af" stroke-width="3"/><path d="M720 251 l15 10 -15 10" fill="none" stroke="#fda4af" stroke-width="3"/>
+    <rect x="755" y="220" width="225" height="82" rx="14" fill="#881337" stroke="#fda4af"/>
+    <text x="867" y="250" fill="#ffe4e6" text-anchor="middle" font-weight="700">Transformer step</text>
+    <text x="867" y="275" fill="#ffe4e6" text-anchor="middle">small projection + attention</text>
+    <text x="600" y="350" fill="#fda4af" font-weight="700">Read and append</text>
+    <rect x="600" y="370" width="380" height="34" rx="10" fill="#7f1d1d" stroke="#fda4af"/>
+    <text x="790" y="392" fill="#ffe4e6" text-anchor="middle">K/V history [S_cached] → append K/V for tₛ₊₁</text>
+  </g>
+  <text x="550" y="482" text-anchor="middle" fill="#cbd5e1" font-family="ui-sans-serif,system-ui,sans-serif" font-size="14">Batching can make decode more GEMM-like by combining active sequences, but individual latency is a separate scheduling objective.</text>
+</svg>
